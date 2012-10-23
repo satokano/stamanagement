@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=euc-jp">
+<title>STA Management Daemon: sta_timer.h</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.1 -->
+<div class="tabs">
+  <ul>
+    <li><a href="main.html"><span>メインページ</span></a></li>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li id="current"><a href="files.html"><span>ファイル</span></a></li>
+    <li><a href="pages.html"><span>関連ページ</span></a></li>
+  </ul></div>
+<div class="tabs">
+  <ul>
+    <li><a href="files.html"><span>ファイル一覧</span></a></li>
+    <li><a href="globals.html"><span>グローバル</span></a></li>
+  </ul></div>
+<h1>sta_timer.h</h1>タイマー関連 pthreadを使ってタイマーを実現する <a href="#_details">[詳細]</a>
+<p>
+
+<p>
+このグラフは、どのファイルから直接、間接的にインクルードされているかを示しています。<p><center><img src="sta__timer_8h__dep__incl.png" border="0" usemap="#sta_timer.hdep_map" alt=""></center>
+<map name="sta_timer.hdep_map">
+<area href="sta__timer_8c.html" shape="rect" coords="165,8,261,32" alt="">
+<area href="stamanagement_8c.html" shape="rect" coords="151,56,274,80" alt="">
+</map>
+
+<p>
+<a href="sta__timer_8h-source.html">ソースコードを見る。</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>データ構造</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__time__event__t.html">_time_event_t</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">タイマーイベントの構造体 タイマーイベントの構造体  <a href="struct__time__event__t.html#_details">[詳細]</a><br></td></tr>
+<tr><td colspan="2"><br><h2>マクロ定義</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="sta__timer_8h.html#53144c7ec69f1e7940a518a19f2b970f">MAX_NUM_TIMER</a>&nbsp;&nbsp;&nbsp;4</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">タイマーの数  <a href="#53144c7ec69f1e7940a518a19f2b970f"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>型定義</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="struct__time__event__t.html">_time_event_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="sta__timer_8h.html#2753dbc36d849ccfb2eee6a0dbbcd28b">time_event_t</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">タイマーイベントの構造体 タイマーイベントの構造体  <a href="#2753dbc36d849ccfb2eee6a0dbbcd28b"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>関数</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="sta__timer_8h.html#132d31dc746d9938e3b714139e65b83b">timer_on</a> (int timer_id, void(*func)(void), int duration)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">タイマーを起動する  <a href="#132d31dc746d9938e3b714139e65b83b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="sta__timer_8h.html#4dbd8be10e8d8a85dbdc1d290fdb607b">timer_off</a> (int timer_id)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">タイマーを停止する  <a href="#4dbd8be10e8d8a85dbdc1d290fdb607b"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>変数</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct__time__event__t.html">time_event_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a> [MAX_NUM_TIMER]</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">タイマーの配列  <a href="#0db5f5c9e885453fbd26ef9ee943b50d"></a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+タイマー関連 pthreadを使ってタイマーを実現する 
+<p>
+<dl class="author" compact><dt><b>作者:</b></dt><dd>Satoshi OKANO &lt;<a href="mailto:okano@mcl.iis.u-tokyo.ac.jp">okano@mcl.iis.u-tokyo.ac.jp</a>&gt; </dd></dl>
+
+<p>
+ <a class="el" href="sta__timer_8h-source.html">sta_timer.h</a> で定義されています。<hr><h2>マクロ定義</h2>
+<a class="anchor" name="53144c7ec69f1e7940a518a19f2b970f"></a><!-- doxytag: member="sta_timer.h::MAX_NUM_TIMER" ref="53144c7ec69f1e7940a518a19f2b970f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_NUM_TIMER&nbsp;&nbsp;&nbsp;4          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+タイマーの数 
+<p>
+
+<p>
+ <a class="el" href="sta__timer_8h-source.html">sta_timer.h</a> の <a class="el" href="sta__timer_8h-source.html#l00011">11</a> 行で定義されています。
+</div>
+</div><p>
+<hr><h2>型定義</h2>
+<a class="anchor" name="2753dbc36d849ccfb2eee6a0dbbcd28b"></a><!-- doxytag: member="sta_timer.h::time_event_t" ref="2753dbc36d849ccfb2eee6a0dbbcd28b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct__time__event__t.html">_time_event_t</a>  <a class="el" href="struct__time__event__t.html">time_event_t</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+タイマーイベントの構造体 タイマーイベントの構造体 
+<p>
+
+</div>
+</div><p>
+<hr><h2>関数</h2>
+<a class="anchor" name="4dbd8be10e8d8a85dbdc1d290fdb607b"></a><!-- doxytag: member="sta_timer.h::timer_off" ref="4dbd8be10e8d8a85dbdc1d290fdb607b" args="(int timer_id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timer_off           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>timer_id</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+タイマーを停止する 
+<p>
+経過時間に関係なく指定したタイマーを停止する <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>timer_id</em>&nbsp;</td><td>停止するタイマーのID </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="sta__timer_8c-source.html">sta_timer.c</a> の <a class="el" href="sta__timer_8c-source.html#l00043">43</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="sta__timer_8h-source.html#l00026">sta_timers</a>・<a class="el" href="sta__timer_8h-source.html#l00021">_time_event_t::status</a>.
+</div>
+</div><p>
+<a class="anchor" name="132d31dc746d9938e3b714139e65b83b"></a><!-- doxytag: member="sta_timer.h::timer_on" ref="132d31dc746d9938e3b714139e65b83b" args="(int timer_id, void(*func)(void), int duration)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timer_on           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>timer_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(void)&nbsp;</td>
+          <td class="paramname"> <em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>duration</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+タイマーを起動する 
+<p>
+指定したタイマーを起動する。持続期間、タイマーが切れたときに起動する関数も指定。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>timer_id</em>&nbsp;</td><td>起動するタイマーのID </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>func</em>&nbsp;</td><td>切れたときに起動する関数 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>duration</em>&nbsp;</td><td>持続期間 </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="sta__timer_8c-source.html">sta_timer.c</a> の <a class="el" href="sta__timer_8c-source.html#l00024">24</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="sta__timer_8h-source.html#l00019">_time_event_t::duration</a>・<a class="el" href="struct__time__event__t.html#e1c96ee426083b1b94d44cb24fed90d6">_time_event_t::func</a>・<a class="el" href="sta__timer_8h-source.html#l00026">sta_timers</a>・<a class="el" href="sta__timer_8h-source.html#l00021">_time_event_t::status</a>・<a class="el" href="sta__timer_8c-source.html#l00057">thread_timer_on()</a>・<a class="el" href="sta__timer_8h-source.html#l00018">_time_event_t::timer_id</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00440">allocation_request_start()</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="sta__timer_8h_132d31dc746d9938e3b714139e65b83b_cgraph.png" border="0" usemap="#sta__timer_8h_132d31dc746d9938e3b714139e65b83b_cgraph_map" alt=""></center>
+<map name="sta__timer_8h_132d31dc746d9938e3b714139e65b83b_cgraph_map">
+<area href="sta__timer_8c.html#27e850bd8113827570eba1a23b8934b4" shape="rect" coords="133,8,256,32" alt="">
+</map>
+
+</div>
+</div><p>
+<hr><h2>変数</h2>
+<a class="anchor" name="0db5f5c9e885453fbd26ef9ee943b50d"></a><!-- doxytag: member="sta_timer.h::sta_timers" ref="0db5f5c9e885453fbd26ef9ee943b50d" args="[MAX_NUM_TIMER]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__time__event__t.html">time_event_t</a> <a class="el" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[MAX_NUM_TIMER]          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+タイマーの配列 
+<p>
+
+<p>
+ <a class="el" href="sta__timer_8h-source.html">sta_timer.h</a> の <a class="el" href="sta__timer_8h-source.html#l00026">26</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="sta__timer_8c-source.html#l00043">timer_off()</a>・<a class="el" href="sta__timer_8c-source.html#l00024">timer_on()</a>.
+</div>
+</div><p>
+<hr size="1"><address style="align: right;"><small>STA Management Daemonに対してSat Jan 27 18:50:19 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
+</body>
+</html>

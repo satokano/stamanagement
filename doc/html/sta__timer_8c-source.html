@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=euc-jp">
+<title>STA Management Daemon: sta_timer.c ソースファイル</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.1 -->
+<div class="tabs">
+  <ul>
+    <li><a href="main.html"><span>メインページ</span></a></li>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li id="current"><a href="files.html"><span>ファイル</span></a></li>
+    <li><a href="pages.html"><span>関連ページ</span></a></li>
+  </ul></div>
+<div class="tabs">
+  <ul>
+    <li><a href="files.html"><span>ファイル一覧</span></a></li>
+    <li><a href="globals.html"><span>グローバル</span></a></li>
+  </ul></div>
+<h1>sta_timer.c</h1><a href="sta__timer_8c.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;pthread.h&gt;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;syslog.h&gt;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;sys/time.h&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include "<a class="code" href="sta__timer_8h.html">sta_timer.h</a>"</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">static</span> <span class="keywordtype">void</span> *<a class="code" href="sta__timer_8c.html#27e850bd8113827570eba1a23b8934b4">thread_timer_on</a>(<span class="keywordtype">void</span> *arg);
+<a name="l00015"></a>00015 
+<a name="l00024"></a><a class="code" href="sta__timer_8h.html#132d31dc746d9938e3b714139e65b83b">00024</a> <span class="keywordtype">void</span> <a class="code" href="sta__timer_8c.html#132d31dc746d9938e3b714139e65b83b">timer_on</a>(<span class="keywordtype">int</span> timer_id, <span class="keywordtype">void</span> (*func)(<span class="keywordtype">void</span>), <span class="keywordtype">int</span> duration) {
+<a name="l00025"></a>00025     pthread_t tid;
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027     <a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id].<a class="code" href="struct__time__event__t.html#50594db2a2301dc4973add880a507128">timer_id</a> = timer_id;
+<a name="l00028"></a>00028     <a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id].<a class="code" href="struct__time__event__t.html#fdfe9167786be31cc642896a046040d6">duration</a> = duration;
+<a name="l00029"></a>00029     <a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id].<a class="code" href="struct__time__event__t.html#e1c96ee426083b1b94d44cb24fed90d6">func</a> = func;
+<a name="l00030"></a>00030     <a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id].<a class="code" href="struct__time__event__t.html#b65aba151350eb65f878c489c96a9080">status</a> = 0;
+<a name="l00031"></a>00031     pthread_mutex_init(&amp;<a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id].timer_mutex, NULL);
+<a name="l00032"></a>00032     pthread_cond_init(&amp;<a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id].timer_cond, NULL);
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034     pthread_create(&amp;tid, NULL, &amp;<a class="code" href="sta__timer_8c.html#27e850bd8113827570eba1a23b8934b4">thread_timer_on</a>, &amp;<a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id]);
+<a name="l00035"></a>00035 }
+<a name="l00036"></a>00036 
+<a name="l00043"></a><a class="code" href="sta__timer_8h.html#4dbd8be10e8d8a85dbdc1d290fdb607b">00043</a> <span class="keywordtype">void</span> <a class="code" href="sta__timer_8c.html#4dbd8be10e8d8a85dbdc1d290fdb607b">timer_off</a>(<span class="keywordtype">int</span> timer_id) {
+<a name="l00044"></a>00044     pthread_mutex_lock(&amp;<a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id].timer_mutex);
+<a name="l00045"></a>00045     <a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id].<a class="code" href="struct__time__event__t.html#b65aba151350eb65f878c489c96a9080">status</a> = 0;
+<a name="l00046"></a>00046     pthread_cond_signal(&amp;<a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id].timer_cond);
+<a name="l00047"></a>00047     pthread_mutex_unlock(&amp;<a class="code" href="sta__timer_8h.html#0db5f5c9e885453fbd26ef9ee943b50d">sta_timers</a>[timer_id].timer_mutex);
+<a name="l00048"></a>00048 }
+<a name="l00049"></a>00049 
+<a name="l00057"></a><a class="code" href="sta__timer_8c.html#27e850bd8113827570eba1a23b8934b4">00057</a> <span class="keyword">static</span> <span class="keywordtype">void</span> *<a class="code" href="sta__timer_8c.html#27e850bd8113827570eba1a23b8934b4">thread_timer_on</a>(<span class="keywordtype">void</span> *arg) {
+<a name="l00058"></a>00058     <span class="keyword">struct </span>timespec ts;
+<a name="l00059"></a>00059     <span class="keyword">struct </span>timeval tv;
+<a name="l00060"></a>00060     <a class="code" href="struct__time__event__t.html">time_event_t</a> *t_event;
+<a name="l00061"></a>00061     
+<a name="l00062"></a>00062     t_event = (<a class="code" href="struct__time__event__t.html">time_event_t</a> *)arg;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     pthread_detach(pthread_self());
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066     gettimeofday(&amp;tv, NULL);
+<a name="l00067"></a>00067     ts.tv_sec  = tv.tv_sec  + t_event-&gt;duration;
+<a name="l00068"></a>00068     ts.tv_nsec = tv.tv_usec * 1000;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     pthread_mutex_lock(&amp;(t_event-&gt;timer_mutex));
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     t_event-&gt;status = 1;
+<a name="l00073"></a>00073     pthread_cond_timedwait(&amp;(t_event-&gt;timer_cond), &amp;(t_event-&gt;timer_mutex), &amp;ts);
+<a name="l00074"></a>00074     <span class="keywordflow">if</span> (t_event-&gt;status == 1) {
+<a name="l00075"></a>00075         (*(t_event-&gt;func))();
+<a name="l00076"></a>00076     }
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078     pthread_mutex_unlock(&amp;(t_event-&gt;timer_mutex));
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     <span class="comment">//free(t_event); // こいつが元凶だった。。。</span>
+<a name="l00081"></a>00081     <span class="keywordflow">return</span> NULL;
+<a name="l00082"></a>00082 }
+<a name="l00083"></a>00083 
+</pre></div><hr size="1"><address style="align: right;"><small>STA Management Daemonに対してSat Jan 27 18:50:18 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
+</body>
+</html>

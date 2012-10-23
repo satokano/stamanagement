@@ -1,0 +1,1055 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=euc-jp">
+<title>STA Management Daemon: stamanagement.c</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.1 -->
+<div class="tabs">
+  <ul>
+    <li><a href="main.html"><span>メインページ</span></a></li>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li id="current"><a href="files.html"><span>ファイル</span></a></li>
+    <li><a href="pages.html"><span>関連ページ</span></a></li>
+  </ul></div>
+<div class="tabs">
+  <ul>
+    <li><a href="files.html"><span>ファイル一覧</span></a></li>
+    <li><a href="globals.html"><span>グローバル</span></a></li>
+  </ul></div>
+<h1>stamanagement.c</h1>STA Management Daemon STAのセット、更新などを行うデーモン <a href="#_details">[詳細]</a>
+<p>
+<code>#include &lt;arpa/inet.h&gt;</code><br>
+<code>#include &lt;assert.h&gt;</code><br>
+<code>#include &lt;errno.h&gt;</code><br>
+<code>#include &lt;ifaddrs.h&gt;</code><br>
+<code>#include &lt;linux/sockios.h&gt;</code><br>
+<code>#include &lt;math.h&gt;</code><br>
+<code>#include &lt;net/if.h&gt;</code><br>
+<code>#include &lt;netinet/in.h&gt;</code><br>
+<code>#include &lt;netdb.h&gt;</code><br>
+<code>#include &lt;pthread.h&gt;</code><br>
+<code>#include &lt;signal.h&gt;</code><br>
+<code>#include &lt;stdio.h&gt;</code><br>
+<code>#include &lt;stdlib.h&gt;</code><br>
+<code>#include &lt;string.h&gt;</code><br>
+<code>#include &lt;stropts.h&gt;</code><br>
+<code>#include &lt;syslog.h&gt;</code><br>
+<code>#include &lt;sys/fcntl.h&gt;</code><br>
+<code>#include &lt;sys/socket.h&gt;</code><br>
+<code>#include &lt;sys/time.h&gt;</code><br>
+<code>#include &lt;time.h&gt;</code><br>
+<code>#include &lt;unistd.h&gt;</code><br>
+<code>#include &quot;<a class="el" href="stamanagement_8h-source.html">stamanagement.h</a>&quot;</code><br>
+<code>#include &quot;<a class="el" href="sta__timer_8h-source.html">sta_timer.h</a>&quot;</code><br>
+
+<p>
+stamanagement.cのインクルード依存関係図<p><center><img src="stamanagement_8c__incl.png" border="0" usemap="#stamanagement.c_map" alt=""></center>
+<map name="stamanagement.c_map">
+<area href="stamanagement_8h.html" shape="rect" coords="178,1016,301,1040" alt="">
+<area href="sta__timer_8h.html" shape="rect" coords="191,1064,287,1088" alt="">
+</map>
+
+<p>
+<a href="stamanagement_8c-source.html">ソースコードを見る。</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>データ構造</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structin6__ifreq.html">in6_ifreq</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="structin6__ifreq.html">in6_ifreq</a>  <a href="structin6__ifreq.html#_details">[詳細]</a><br></td></tr>
+<tr><td colspan="2"><br><h2>関数</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#1cc481b5987378c013d3437c5ffafa37">in6_addr_equal</a> (const struct in6_addr *a, const struct in6_addr *b)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">2つのv6アドレスが等しいか調べる  <a href="#1cc481b5987378c013d3437c5ffafa37"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#00324e0b02ef9c19bcc630c1e8b687ee">recv_from_fifo</a> (void *arg)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">FIFOからの受信  <a href="#00324e0b02ef9c19bcc630c1e8b687ee"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#4f0d36fa91dbfcb9acebfb2df7d1b5b3">encode_to_sta</a> (<a class="el" href="struct__PositionOut.html">PositionOut</a> po, struct in6_addr *newsta)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">ミドルウェア出力からSTAに変換する  <a href="#4f0d36fa91dbfcb9acebfb2df7d1b5b3"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#9b23299962baf5c9ed9111c279eeacfe">decode_from_sta</a> (struct in6_addr *sta, <a class="el" href="struct__PositionOut.html">PositionOut</a> *po)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">STAからPositionOutに変換する。  <a href="#9b23299962baf5c9ed9111c279eeacfe"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#4594982b4b7c93034dde116a25ef701b">add_sta</a> (struct sockaddr_in6 *newsta)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">STAをaddする。  <a href="#4594982b4b7c93034dde116a25ef701b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#de7e1ba2d15a89b76013f06794fc111b">delete_sta</a> (struct sockaddr_in6 *oldsta)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">古いSTAをdelする。  <a href="#de7e1ba2d15a89b76013f06794fc111b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#d870eaad22c93853e0bb544274d6699b">allocation_request_start</a> (struct sockaddr_in6 newsta)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">AREQをブロードキャストしてWT待つ  <a href="#d870eaad22c93853e0bb544274d6699b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#1390641a02e1bfd0559b339469b76211">allocation_request_timeout</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">AREQブロードキャスト後のタイムアウト処理  <a href="#1390641a02e1bfd0559b339469b76211"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#b0d5fc7ffa90be68cc7cc71dd629d90e">is_inside_valid_range</a> (const <a class="el" href="struct__PositionOut.html">PositionOut</a> *const real, const <a class="el" href="struct__PositionOut.html">PositionOut</a> *const decoded)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">STA有効範囲内にあるかどうか判定する。  <a href="#b0d5fc7ffa90be68cc7cc71dd629d90e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#ba0b62497c20a7255bbaf093703ba13b">lat2y</a> (double lat)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">緯度をm単位に変換する  <a href="#ba0b62497c20a7255bbaf093703ba13b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#3b4cf741910b0a78cf0e191ec8532fcd">lon2x</a> (double lon, double lat)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">緯度latでの経線lon度分の長さをm単位で求める。  <a href="#3b4cf741910b0a78cf0e191ec8532fcd"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#ef019ef18a588d7ec1c27c3ca3a11892">get_socket_for_afinet6</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">AF_INET6用のsocketを作成してfdを返す。  <a href="#ef019ef18a588d7ec1c27c3ca3a11892"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#e34c0c5c945089f9ac2e713b3c1ea11c">init_udp_socket</a> (pthread_t recv_from_udp_thread_id)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">DADのためのUDPソケットを初期化  <a href="#e34c0c5c945089f9ac2e713b3c1ea11c"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#efd93035a2129ca4d0bb7dd666afa5dc">init_temporary_address_status</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">仮アドレスの構造体を初期化  <a href="#efd93035a2129ca4d0bb7dd666afa5dc"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#b436a10cb3c132bafcbe3d218958c0ba">recv_from_udp</a> (void *arg)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">DADのためのUDP受信処理  <a href="#b436a10cb3c132bafcbe3d218958c0ba"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#00b89cb54db657bc21c6afe770b65c66">recv_from_udp_child</a> (void *arg)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">DADのためのUDP受信、子スレッド  <a href="#00b89cb54db657bc21c6afe770b65c66"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#882776ace026a93631fc479af2baba3f">packet_type_is_areq</a> (char *buf)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">AREQかどうか判定する  <a href="#882776ace026a93631fc479af2baba3f"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#d5afe3d4e60726265351ff358448cc81">packet_type_is_arep</a> (char *buf)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">AREPかどうか判定する  <a href="#d5afe3d4e60726265351ff358448cc81"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#71926b77bb44d1116dd86f6ffde9d94a">is_duplicate</a> (char *buf)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">重複ありかなしか判定する  <a href="#71926b77bb44d1116dd86f6ffde9d94a"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#2a20974208b6a1ef316e2b916f18e93f">sigaction_handler</a> (int sig, siginfo_t *si, void *context)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">シグナルハンドラ  <a href="#2a20974208b6a1ef316e2b916f18e93f"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#81a84336b76bad022600aed0e45ad74c">init_parameters</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">グローバル変数の初期化  <a href="#81a84336b76bad022600aed0e45ad74c"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#64a6014565bb3e03294ec4a952d5add0">usage</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">使用法説明  <a href="#64a6014565bb3e03294ec4a952d5add0"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8c.html#3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">メイン関数  <a href="#3c04138a5bfe5d72780bb7e82a18e627"></a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+STA Management Daemon STAのセット、更新などを行うデーモン 
+<p>
+<dl class="author" compact><dt><b>作者:</b></dt><dd>Satoshi OKANO &lt;<a href="mailto:okano@mcl.iis.u-tokyo.ac.jp">okano@mcl.iis.u-tokyo.ac.jp</a>&gt; </dd></dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> で定義されています。<hr><h2>関数</h2>
+<a class="anchor" name="4594982b4b7c93034dde116a25ef701b"></a><!-- doxytag: member="stamanagement.c::add_sta" ref="4594982b4b7c93034dde116a25ef701b" args="(struct sockaddr_in6 *newsta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int add_sta           </td>
+          <td>(</td>
+          <td class="paramtype">struct sockaddr_in6 *&nbsp;</td>
+          <td class="paramname"> <em>newsta</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+STAをaddする。 
+<p>
+インターフェースにSTAをaddする。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>newsta</em>&nbsp;</td><td>新しいSTA </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>成功 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>-1</em>&nbsp;</td><td>失敗 </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00355">355</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8c-source.html#l00617">get_socket_for_afinet6()</a>・<a class="el" href="stamanagement_8c-source.html#l00068">in6_ifreq::ifr6_addr</a>・<a class="el" href="stamanagement_8c-source.html#l00070">in6_ifreq::ifr6_ifindex</a>・<a class="el" href="stamanagement_8c-source.html#l00069">in6_ifreq::ifr6_prefixlen</a>・<a class="el" href="stamanagement_8h-source.html#l00115">wlan_interface</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="stamanagement_8c_4594982b4b7c93034dde116a25ef701b_cgraph.png" border="0" usemap="#stamanagement_8c_4594982b4b7c93034dde116a25ef701b_cgraph_map" alt=""></center>
+<map name="stamanagement_8c_4594982b4b7c93034dde116a25ef701b_cgraph_map">
+<area href="stamanagement_8c.html#ef019ef18a588d7ec1c27c3ca3a11892" shape="rect" coords="126,8,294,32" alt="">
+</map>
+
+</div>
+</div><p>
+<a class="anchor" name="d870eaad22c93853e0bb544274d6699b"></a><!-- doxytag: member="stamanagement.c::allocation_request_start" ref="d870eaad22c93853e0bb544274d6699b" args="(struct sockaddr_in6 newsta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int allocation_request_start           </td>
+          <td>(</td>
+          <td class="paramtype">struct sockaddr_in6&nbsp;</td>
+          <td class="paramname"> <em>newsta</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+AREQをブロードキャストしてWT待つ 
+<p>
+AREQ(Allocation REQest)を無線半径内にブロードキャストしてWT秒待つ<p>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>重複なし </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>1</em>&nbsp;</td><td>重複しているとの返答あり </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00440">440</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8c-source.html#l00485">allocation_request_timeout()</a>・<a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474b9ab10d084d2aa43c5a5fee1ae99a8968">AREQ</a>・<a class="el" href="stamanagement_8h-source.html#l00017">AREQ_PACKET_SIZE</a>・<a class="el" href="stamanagement_8h-source.html#l00120">in6addr_linklocalmulticast</a>・<a class="el" href="stamanagement_8h-source.html#l00118">sockfd</a>・<a class="el" href="sta__timer_8c-source.html#l00024">timer_on()</a>・<a class="el" href="stamanagement_8h-source.html#l00116">udp_port</a>・<a class="el" href="stamanagement_8h-source.html#l00117">waiting_time</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="stamanagement_8c_d870eaad22c93853e0bb544274d6699b_cgraph.png" border="0" usemap="#stamanagement_8c_d870eaad22c93853e0bb544274d6699b_cgraph_map" alt=""></center>
+<map name="stamanagement_8c_d870eaad22c93853e0bb544274d6699b_cgraph_map">
+<area href="stamanagement_8c.html#1390641a02e1bfd0559b339469b76211" shape="rect" coords="241,8,436,32" alt="">
+<area href="sta__timer_8c.html#132d31dc746d9938e3b714139e65b83b" shape="rect" coords="301,56,376,80" alt="">
+<area href="sta__timer_8c.html#27e850bd8113827570eba1a23b8934b4" shape="rect" coords="485,56,608,80" alt="">
+</map>
+
+</div>
+</div><p>
+<a class="anchor" name="1390641a02e1bfd0559b339469b76211"></a><!-- doxytag: member="stamanagement.c::allocation_request_timeout" ref="1390641a02e1bfd0559b339469b76211" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void allocation_request_timeout           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+AREQブロードキャスト後のタイムアウト処理 
+<p>
+AREQをブロードキャストしたあとタイムアウトしたときの処理 アドレスを確定、または重複していたら単に抜ける <dl class="return" compact><dt><b>戻り値:</b></dt><dd>0 0を返す </dd></dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00485">485</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f42148610025b91763a4a8f6d4702fcc57c8">DAD</a>・<a class="el" href="stamanagement_8h-source.html#l00099">_temporary_address_status::flag</a>・<a class="el" href="stamanagement_8h-source.html#l00030">IN6_IS_ADDR_STA</a>・<a class="el" href="stamanagement_8h-source.html#l00098">_temporary_address_status::mutex</a>・<a class="el" href="stamanagement_8h-source.html#l00119">temp_address</a>・<a class="el" href="stamanagement_8h-source.html#l00115">wlan_interface</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00440">allocation_request_start()</a>.
+</div>
+</div><p>
+<a class="anchor" name="9b23299962baf5c9ed9111c279eeacfe"></a><!-- doxytag: member="stamanagement.c::decode_from_sta" ref="9b23299962baf5c9ed9111c279eeacfe" args="(struct in6_addr *sta, PositionOut *po)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int decode_from_sta           </td>
+          <td>(</td>
+          <td class="paramtype">struct in6_addr *&nbsp;</td>
+          <td class="paramname"> <em>sta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct__PositionOut.html">PositionOut</a> *&nbsp;</td>
+          <td class="paramname"> <em>po</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+STAからPositionOutに変換する。 
+<p>
+STAからPositionOutに変換する。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>sta</em>&nbsp;</td><td>変換元STA </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>po</em>&nbsp;</td><td>変換先PositionOut </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>成功 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>-1</em>&nbsp;</td><td>失敗 </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00310">310</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00071">_PositionOut::alt</a>・<a class="el" href="stamanagement_8h-source.html#l00030">IN6_IS_ADDR_STA</a>・<a class="el" href="stamanagement_8h-source.html#l00066">_PositionOut::index</a>・<a class="el" href="stamanagement_8h-source.html#l00069">_PositionOut::lat</a>・<a class="el" href="stamanagement_8h-source.html#l00070">_PositionOut::lon</a>・<a class="el" href="stamanagement_8h-source.html#l00068">_PositionOut::time</a>.
+</div>
+</div><p>
+<a class="anchor" name="de7e1ba2d15a89b76013f06794fc111b"></a><!-- doxytag: member="stamanagement.c::delete_sta" ref="de7e1ba2d15a89b76013f06794fc111b" args="(struct sockaddr_in6 *oldsta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int delete_sta           </td>
+          <td>(</td>
+          <td class="paramtype">struct sockaddr_in6 *&nbsp;</td>
+          <td class="paramname"> <em>oldsta</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+古いSTAをdelする。 
+<p>
+インターフェースの古いSTAをdelする。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>oldsta</em>&nbsp;</td><td>削除する古いSTA </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>成功 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>-1</em>&nbsp;</td><td>失敗 </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00401">401</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8c-source.html#l00617">get_socket_for_afinet6()</a>・<a class="el" href="stamanagement_8c-source.html#l00068">in6_ifreq::ifr6_addr</a>・<a class="el" href="stamanagement_8c-source.html#l00070">in6_ifreq::ifr6_ifindex</a>・<a class="el" href="stamanagement_8c-source.html#l00069">in6_ifreq::ifr6_prefixlen</a>・<a class="el" href="stamanagement_8h-source.html#l00115">wlan_interface</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="stamanagement_8c_de7e1ba2d15a89b76013f06794fc111b_cgraph.png" border="0" usemap="#stamanagement_8c_de7e1ba2d15a89b76013f06794fc111b_cgraph_map" alt=""></center>
+<map name="stamanagement_8c_de7e1ba2d15a89b76013f06794fc111b_cgraph_map">
+<area href="stamanagement_8c.html#ef019ef18a588d7ec1c27c3ca3a11892" shape="rect" coords="147,8,315,32" alt="">
+</map>
+
+</div>
+</div><p>
+<a class="anchor" name="4f0d36fa91dbfcb9acebfb2df7d1b5b3"></a><!-- doxytag: member="stamanagement.c::encode_to_sta" ref="4f0d36fa91dbfcb9acebfb2df7d1b5b3" args="(PositionOut po, struct in6_addr *newsta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int encode_to_sta           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__PositionOut.html">PositionOut</a>&nbsp;</td>
+          <td class="paramname"> <em>po</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct in6_addr *&nbsp;</td>
+          <td class="paramname"> <em>newsta</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+ミドルウェア出力からSTAに変換する 
+<p>
+ミドルウェア出力からSTAに変換する。 <dl compact><dt><b><a class="el" href="todo.html#_todo000001">TODO:</a></b></dt><dd>他でも使いたいかもしれないよね </dd></dl>
+<dl compact><dt><b><a class="el" href="todo.html#_todo000001">TODO:</a></b></dt><dd>プレフィックスをちゃんと決める </dd></dl>
+<dl compact><dt><b><a class="el" href="todo.html#_todo000001">TODO:</a></b></dt><dd>高さの原点を決めて、下駄をはかせる。-11000mとか。</dd></dl>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>po</em>&nbsp;</td><td>ミドルウェアからの出力 </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>newsta</em>&nbsp;</td><td>変換したSTAをいれて返す</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>成功 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>-1</em>&nbsp;</td><td>失敗 </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00233">233</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00071">_PositionOut::alt</a>・<a class="el" href="stamanagement_8h-source.html#l00069">_PositionOut::lat</a>・<a class="el" href="stamanagement_8h-source.html#l00070">_PositionOut::lon</a>・<a class="el" href="stamanagement_8h-source.html#l00068">_PositionOut::time</a>.
+</div>
+</div><p>
+<a class="anchor" name="ef019ef18a588d7ec1c27c3ca3a11892"></a><!-- doxytag: member="stamanagement.c::get_socket_for_afinet6" ref="ef019ef18a588d7ec1c27c3ca3a11892" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int get_socket_for_afinet6           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+AF_INET6用のsocketを作成してfdを返す。 
+<p>
+AF_INET6用のsocketを作成してそのファイルディスクリプタを返す。 net-tools内のlib/af.c、lib/sockets.cなどを参考にした。<p>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>作成したファイルディスクリプタ </dd></dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00617">617</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00355">add_sta()</a>・<a class="el" href="stamanagement_8c-source.html#l00401">delete_sta()</a>.
+</div>
+</div><p>
+<a class="anchor" name="1cc481b5987378c013d3437c5ffafa37"></a><!-- doxytag: member="stamanagement.c::in6_addr_equal" ref="1cc481b5987378c013d3437c5ffafa37" args="(const struct in6_addr *a, const struct in6_addr *b)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int in6_addr_equal           </td>
+          <td>(</td>
+          <td class="paramtype">const struct in6_addr *&nbsp;</td>
+          <td class="paramname"> <em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct in6_addr *&nbsp;</td>
+          <td class="paramname"> <em>b</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+2つのv6アドレスが等しいか調べる 
+<p>
+2つのv6アドレスが等しいかmemcmpで調べる。winpcapを参考にした。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>a</em>&nbsp;</td><td>比べるアドレスその1 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>b</em>&nbsp;</td><td>比べるアドレスその2 </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>1</em>&nbsp;</td><td>2つが等しい </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>異なる </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00083">83</a> 行で定義されています。
+</div>
+</div><p>
+<a class="anchor" name="81a84336b76bad022600aed0e45ad74c"></a><!-- doxytag: member="stamanagement.c::init_parameters" ref="81a84336b76bad022600aed0e45ad74c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void init_parameters           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+グローバル変数の初期化 
+<p>
+各種パラメータを保存しているグローバル変数を初期化する。 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00908">908</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00114">fifo_path</a>・<a class="el" href="stamanagement_8h-source.html#l00011">FIFOPATH</a>・<a class="el" href="stamanagement_8h-source.html#l00116">udp_port</a>・<a class="el" href="stamanagement_8h-source.html#l00014">UDP_PORT_NUMBER</a>・<a class="el" href="stamanagement_8h-source.html#l00013">WAITING_TIME</a>・<a class="el" href="stamanagement_8h-source.html#l00117">waiting_time</a>・<a class="el" href="stamanagement_8h-source.html#l00012">WLAN_INTERFACE</a>・<a class="el" href="stamanagement_8h-source.html#l00115">wlan_interface</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+</div>
+</div><p>
+<a class="anchor" name="efd93035a2129ca4d0bb7dd666afa5dc"></a><!-- doxytag: member="stamanagement.c::init_temporary_address_status" ref="efd93035a2129ca4d0bb7dd666afa5dc" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_temporary_address_status           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+仮アドレスの構造体を初期化 
+<p>
+仮アドレスの構造体を初期化する。 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00671">671</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00096">_temporary_address_status::address</a>・<a class="el" href="stamanagement_8h-source.html#l00099">_temporary_address_status::flag</a>・<a class="el" href="stamanagement_8h-source.html#l00097">_temporary_address_status::generated_time</a>・<a class="el" href="stamanagement_8h-source.html#l00098">_temporary_address_status::mutex</a>・<a class="el" href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f421fd16671b5c3e4028ede353a9ace809df">NOT_DUPLICATE</a>・<a class="el" href="stamanagement_8h-source.html#l00119">temp_address</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+</div>
+</div><p>
+<a class="anchor" name="e34c0c5c945089f9ac2e713b3c1ea11c"></a><!-- doxytag: member="stamanagement.c::init_udp_socket" ref="e34c0c5c945089f9ac2e713b3c1ea11c" args="(pthread_t recv_from_udp_thread_id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int init_udp_socket           </td>
+          <td>(</td>
+          <td class="paramtype">pthread_t&nbsp;</td>
+          <td class="paramname"> <em>recv_from_udp_thread_id</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+DADのためのUDPソケットを初期化 
+<p>
+DADの結果受信UDPソケットを初期化 <dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>-1</em>&nbsp;</td><td>失敗 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>成功 </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00631">631</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8c-source.html#l00685">recv_from_udp()</a>・<a class="el" href="stamanagement_8h-source.html#l00118">sockfd</a>・<a class="el" href="stamanagement_8h-source.html#l00116">udp_port</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="stamanagement_8c_e34c0c5c945089f9ac2e713b3c1ea11c_cgraph.png" border="0" usemap="#stamanagement_8c_e34c0c5c945089f9ac2e713b3c1ea11c_cgraph_map" alt=""></center>
+<map name="stamanagement_8c_e34c0c5c945089f9ac2e713b3c1ea11c_cgraph_map">
+<area href="stamanagement_8c.html#b436a10cb3c132bafcbe3d218958c0ba" shape="rect" coords="178,8,287,32" alt="">
+<area href="stamanagement_8c.html#00b89cb54db657bc21c6afe770b65c66" shape="rect" coords="335,8,485,32" alt="">
+<area href="stamanagement_8c.html#882776ace026a93631fc479af2baba3f" shape="rect" coords="534,8,681,32" alt="">
+</map>
+
+</div>
+</div><p>
+<a class="anchor" name="71926b77bb44d1116dd86f6ffde9d94a"></a><!-- doxytag: member="stamanagement.c::is_duplicate" ref="71926b77bb44d1116dd86f6ffde9d94a" args="(char *buf)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int is_duplicate           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>buf</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+重複ありかなしか判定する 
+<p>
+AREPパケットのフラグを見て重複ありかなしか判定する。 <dl class="note" compact><dt><b>覚え書き:</b></dt><dd>どちらとも判定できない場合はabortする。 </dd></dl>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>buf</em>&nbsp;</td><td>パケットへのポインタ </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>重複なし </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>1</em>&nbsp;</td><td>重複あり </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00871">871</a> 行で定義されています。
+</div>
+</div><p>
+<a class="anchor" name="b0d5fc7ffa90be68cc7cc71dd629d90e"></a><!-- doxytag: member="stamanagement.c::is_inside_valid_range" ref="b0d5fc7ffa90be68cc7cc71dd629d90e" args="(const PositionOut *const real, const PositionOut *const decoded)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int is_inside_valid_range           </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct__PositionOut.html">PositionOut</a> *const &nbsp;</td>
+          <td class="paramname"> <em>real</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct__PositionOut.html">PositionOut</a> *const &nbsp;</td>
+          <td class="paramname"> <em>decoded</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+STA有効範囲内にあるかどうか判定する。 
+<p>
+自分がSTA有効範囲内にいるかどうか判定する。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>real</em>&nbsp;</td><td>判定に使う最新の現在位置。LocationmwよりFIFO経由で受け取ったもの。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>decoded</em>&nbsp;</td><td>現在使用しているSTAから逆算したグリッドの基点の位置。 </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>1</em>&nbsp;</td><td>範囲内 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>範囲外 </td></tr>
+  </table>
+</dl>
+
+<p>
+&lt; communication range 無線半径<p>
+&lt; location granularity 位置の粒度 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00546">546</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00069">_PositionOut::lat</a>・<a class="el" href="stamanagement_8c-source.html#l00592">lat2y()</a>・<a class="el" href="stamanagement_8h-source.html#l00070">_PositionOut::lon</a>・<a class="el" href="stamanagement_8c-source.html#l00605">lon2x()</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="stamanagement_8c_b0d5fc7ffa90be68cc7cc71dd629d90e_cgraph.png" border="0" usemap="#stamanagement_8c_b0d5fc7ffa90be68cc7cc71dd629d90e_cgraph_map" alt=""></center>
+<map name="stamanagement_8c_b0d5fc7ffa90be68cc7cc71dd629d90e_cgraph_map">
+<area href="stamanagement_8c.html#ba0b62497c20a7255bbaf093703ba13b" shape="rect" coords="217,8,270,32" alt="">
+<area href="stamanagement_8c.html#3b4cf741910b0a78cf0e191ec8532fcd" shape="rect" coords="217,56,270,80" alt="">
+</map>
+
+</div>
+</div><p>
+<a class="anchor" name="ba0b62497c20a7255bbaf093703ba13b"></a><!-- doxytag: member="stamanagement.c::lat2y" ref="ba0b62497c20a7255bbaf093703ba13b" args="(double lat)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double lat2y           </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>lat</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+緯度をm単位に変換する 
+<p>
+緯度の差分をy方向のm単位の長さに変換する。 緯度1度=約111km <dl class="see" compact><dt><b>参照:</b></dt><dd><a href="http://ja.wikipedia.org/wiki/%E7%B7%AF%E5%BA%A6">http://ja.wikipedia.org/wiki/%E7%B7%AF%E5%BA%A6</a> <p>
+<a href="http://www.rikanenpyo.jp/member/?module=Member&p=Contents%26page%3D2_MS2keyi%3Ams2i%5EContents%26page%3D2_MS2_458%3Agai%5EHilight%26page%3D2_cGEx11x0020_2007_1%26no%3D458%23keyword%3Aco&action=Hilight&page=2_cGEx11x0020_2007_1&no=458#keyword">http://www.rikanenpyo.jp/member/?module=Member&amp;p=Contents%26page%3D2_MS2keyi%3Ams2i%5EContents%26page%3D2_MS2_458%3Agai%5EHilight%26page%3D2_cGEx11x0020_2007_1%26no%3D458%23keyword%3Aco&amp;action=Hilight&amp;page=2_cGEx11x0020_2007_1&amp;no=458#keyword</a></dd></dl>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>lat</em>&nbsp;</td><td>緯度方向の差分 </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>m単位の長さ </dd></dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00592">592</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00546">is_inside_valid_range()</a>.
+</div>
+</div><p>
+<a class="anchor" name="3b4cf741910b0a78cf0e191ec8532fcd"></a><!-- doxytag: member="stamanagement.c::lon2x" ref="3b4cf741910b0a78cf0e191ec8532fcd" args="(double lon, double lat)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double lon2x           </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>lon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>lat</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+緯度latでの経線lon度分の長さをm単位で求める。 
+<p>
+緯度latでの経線lon度分の長さをm単位で求める。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>lon</em>&nbsp;</td><td>変換元経線方向の差分 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>lat</em>&nbsp;</td><td>計算する地点の緯度 </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>m単位の長さ </dd></dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00605">605</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00546">is_inside_valid_range()</a>.
+</div>
+</div><p>
+<a class="anchor" name="3c04138a5bfe5d72780bb7e82a18e627"></a><!-- doxytag: member="stamanagement.c::main" ref="3c04138a5bfe5d72780bb7e82a18e627" args="(int argc, char **argv)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&nbsp;</td>
+          <td class="paramname"> <em>argv</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+メイン関数 
+<p>
+メイン関数。自分をデーモン化、データ受信スレッドを起動。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>argc</em>&nbsp;</td><td>コマンドライン引数の数 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>argv</em>&nbsp;</td><td>コマンドライン引数の配列 </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>0を返す </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00944">944</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00113">daemonize</a>・<a class="el" href="stamanagement_8h-source.html#l00114">fifo_path</a>・<a class="el" href="stamanagement_8c-source.html#l00908">init_parameters()</a>・<a class="el" href="stamanagement_8c-source.html#l00671">init_temporary_address_status()</a>・<a class="el" href="stamanagement_8c-source.html#l00631">init_udp_socket()</a>・<a class="el" href="stamanagement_8c-source.html#l00094">recv_from_fifo()</a>・<a class="el" href="stamanagement_8c-source.html#l00889">sigaction_handler()</a>・<a class="el" href="stamanagement_8h-source.html#l00116">udp_port</a>・<a class="el" href="stamanagement_8c-source.html#l00924">usage()</a>・<a class="el" href="stamanagement_8h-source.html#l00117">waiting_time</a>・<a class="el" href="stamanagement_8h-source.html#l00115">wlan_interface</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="stamanagement_8c_3c04138a5bfe5d72780bb7e82a18e627_cgraph.png" border="0" usemap="#stamanagement_8c_3c04138a5bfe5d72780bb7e82a18e627_cgraph_map" alt=""></center>
+<map name="stamanagement_8c_3c04138a5bfe5d72780bb7e82a18e627_cgraph_map">
+<area href="stamanagement_8c.html#81a84336b76bad022600aed0e45ad74c" shape="rect" coords="153,8,273,32" alt="">
+<area href="stamanagement_8c.html#efd93035a2129ca4d0bb7dd666afa5dc" shape="rect" coords="106,56,320,80" alt="">
+<area href="stamanagement_8c.html#e34c0c5c945089f9ac2e713b3c1ea11c" shape="rect" coords="153,104,273,128" alt="">
+<area href="stamanagement_8c.html#00324e0b02ef9c19bcc630c1e8b687ee" shape="rect" coords="156,152,270,176" alt="">
+<area href="stamanagement_8c.html#2a20974208b6a1ef316e2b916f18e93f" shape="rect" coords="145,200,281,224" alt="">
+<area href="stamanagement_8c.html#64a6014565bb3e03294ec4a952d5add0" shape="rect" coords="185,248,241,272" alt="">
+<area href="stamanagement_8c.html#b436a10cb3c132bafcbe3d218958c0ba" shape="rect" coords="368,104,477,128" alt="">
+<area href="stamanagement_8c.html#00b89cb54db657bc21c6afe770b65c66" shape="rect" coords="525,104,674,128" alt="">
+<area href="stamanagement_8c.html#882776ace026a93631fc479af2baba3f" shape="rect" coords="724,104,870,128" alt="">
+</map>
+
+</div>
+</div><p>
+<a class="anchor" name="d5afe3d4e60726265351ff358448cc81"></a><!-- doxytag: member="stamanagement.c::packet_type_is_arep" ref="d5afe3d4e60726265351ff358448cc81" args="(char *buf)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int packet_type_is_arep           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>buf</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+AREPかどうか判定する 
+<p>
+パケットがAREPかどうか判定する。  buf パケットへのポインタ <dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>AREP以外 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>1</em>&nbsp;</td><td>AREP </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00851">851</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474be863e27205922cf102ddede0f91a1311">AREP</a>.
+</div>
+</div><p>
+<a class="anchor" name="882776ace026a93631fc479af2baba3f"></a><!-- doxytag: member="stamanagement.c::packet_type_is_areq" ref="882776ace026a93631fc479af2baba3f" args="(char *buf)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int packet_type_is_areq           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>buf</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+AREQかどうか判定する 
+<p>
+パケットがAREQかどうか判定する。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>buf</em>&nbsp;</td><td>パケットへのポインタ </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>AREQ以外 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>1</em>&nbsp;</td><td>AREQ </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00832">832</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474b9ab10d084d2aa43c5a5fee1ae99a8968">AREQ</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00742">recv_from_udp_child()</a>.
+</div>
+</div><p>
+<a class="anchor" name="00324e0b02ef9c19bcc630c1e8b687ee"></a><!-- doxytag: member="stamanagement.c::recv_from_fifo" ref="00324e0b02ef9c19bcc630c1e8b687ee" args="(void *arg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* recv_from_fifo           </td>
+          <td>(</td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>arg</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+FIFOからの受信 
+<p>
+ミドルウェアからFIFO経由でデータを受信する <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>arg</em>&nbsp;</td><td>実質使われていない </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>0を返す </td></tr>
+  </table>
+</dl>
+
+<p>
+&lt; FIFOのためのfd<p>
+&lt; oldsta_sin6中のin6_addrを指す 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00094">94</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00114">fifo_path</a>・<a class="el" href="stamanagement_8h-source.html#l00030">IN6_IS_ADDR_STA</a>・<a class="el" href="stamanagement_8h-source.html#l00122">srv_shutdown</a>・<a class="el" href="stamanagement_8h-source.html#l00021">UNUSED</a>・<a class="el" href="stamanagement_8h-source.html#l00115">wlan_interface</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+</div>
+</div><p>
+<a class="anchor" name="b436a10cb3c132bafcbe3d218958c0ba"></a><!-- doxytag: member="stamanagement.c::recv_from_udp" ref="b436a10cb3c132bafcbe3d218958c0ba" args="(void *arg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* recv_from_udp           </td>
+          <td>(</td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>arg</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+DADのためのUDP受信処理 
+<p>
+DADの結果の受信スレッド処理。 受信だけしてすぐにさらなる子スレッドに処理を任せる。 自分がスタータの場合はDADの返答を受け取る、リゾルバの場合はAREQを受け取る 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00685">685</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00084">_pthreadarg_addr_buf::buf</a>・<a class="el" href="stamanagement_8h-source.html#l00083">_pthreadarg_addr_buf::fromaddr</a>・<a class="el" href="stamanagement_8c-source.html#l00742">recv_from_udp_child()</a>・<a class="el" href="stamanagement_8h-source.html#l00118">sockfd</a>・<a class="el" href="stamanagement_8h-source.html#l00122">srv_shutdown</a>・<a class="el" href="stamanagement_8h-source.html#l00015">UDP_RECV_BUF_SIZE</a>・<a class="el" href="stamanagement_8h-source.html#l00021">UNUSED</a>・<a class="el" href="stamanagement_8h-source.html#l00085">_pthreadarg_addr_buf::usedlen</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00631">init_udp_socket()</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="stamanagement_8c_b436a10cb3c132bafcbe3d218958c0ba_cgraph.png" border="0" usemap="#stamanagement_8c_b436a10cb3c132bafcbe3d218958c0ba_cgraph_map" alt=""></center>
+<map name="stamanagement_8c_b436a10cb3c132bafcbe3d218958c0ba_cgraph_map">
+<area href="stamanagement_8c.html#00b89cb54db657bc21c6afe770b65c66" shape="rect" coords="165,8,314,32" alt="">
+<area href="stamanagement_8c.html#882776ace026a93631fc479af2baba3f" shape="rect" coords="364,8,510,32" alt="">
+</map>
+
+</div>
+</div><p>
+<a class="anchor" name="00b89cb54db657bc21c6afe770b65c66"></a><!-- doxytag: member="stamanagement.c::recv_from_udp_child" ref="00b89cb54db657bc21c6afe770b65c66" args="(void *arg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* recv_from_udp_child           </td>
+          <td>(</td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>arg</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+DADのためのUDP受信、子スレッド 
+<p>
+実際の処理を受け持つ子スレッド 自分がスタータの場合はDADの返答を受け取る、リゾルバの場合はAREQを受け取る 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00742">742</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474be863e27205922cf102ddede0f91a1311">AREP</a>・<a class="el" href="stamanagement_8h-source.html#l00018">AREP_PACKET_SIZE</a>・<a class="el" href="stamanagement_8h-source.html#l00084">_pthreadarg_addr_buf::buf</a>・<a class="el" href="stamanagement_8h-source.html#l00083">_pthreadarg_addr_buf::fromaddr</a>・<a class="el" href="stamanagement_8h-source.html#l00030">IN6_IS_ADDR_STA</a>・<a class="el" href="stamanagement_8c-source.html#l00832">packet_type_is_areq()</a>・<a class="el" href="stamanagement_8h-source.html#l00115">wlan_interface</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00685">recv_from_udp()</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="stamanagement_8c_00b89cb54db657bc21c6afe770b65c66_cgraph.png" border="0" usemap="#stamanagement_8c_00b89cb54db657bc21c6afe770b65c66_cgraph_map" alt=""></center>
+<map name="stamanagement_8c_00b89cb54db657bc21c6afe770b65c66_cgraph_map">
+<area href="stamanagement_8c.html#882776ace026a93631fc479af2baba3f" shape="rect" coords="206,8,353,32" alt="">
+</map>
+
+</div>
+</div><p>
+<a class="anchor" name="2a20974208b6a1ef316e2b916f18e93f"></a><!-- doxytag: member="stamanagement.c::sigaction_handler" ref="2a20974208b6a1ef316e2b916f18e93f" args="(int sig, siginfo_t *si, void *context)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void sigaction_handler           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>sig</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">siginfo_t *&nbsp;</td>
+          <td class="paramname"> <em>si</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>context</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+シグナルハンドラ 
+<p>
+SIGTERMなどをキャッチするハンドラ。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>sig</em>&nbsp;</td><td>Signal Number </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>si</em>&nbsp;</td><td>シグナル情報構造体 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>context</em>&nbsp;</td><td>ユーザーコンテキスト構造体 </td></tr>
+  </table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00889">889</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00122">srv_shutdown</a>・<a class="el" href="stamanagement_8h-source.html#l00021">UNUSED</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+</div>
+</div><p>
+<a class="anchor" name="64a6014565bb3e03294ec4a952d5add0"></a><!-- doxytag: member="stamanagement.c::usage" ref="64a6014565bb3e03294ec4a952d5add0" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usage           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+使用法説明 
+<p>
+コマンドライン引数の説明を表示して終了する。 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00924">924</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00011">FIFOPATH</a>・<a class="el" href="stamanagement_8h-source.html#l00014">UDP_PORT_NUMBER</a>・<a class="el" href="stamanagement_8h-source.html#l00013">WAITING_TIME</a>・<a class="el" href="stamanagement_8h-source.html#l00012">WLAN_INTERFACE</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+</div>
+</div><p>
+<hr size="1"><address style="align: right;"><small>STA Management Daemonに対してSat Jan 27 18:50:22 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
+</body>
+</html>

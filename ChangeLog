@@ -1,0 +1,491 @@
+2007-03-28  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	AUTHORSとREADMEの内容を書いた
+
+2007-03-28  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	add AUTHORS,ChangeLog,README
+
+2007-03-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	antのbuild.xml
+
+2007-03-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	木實さんによるstaのログビューワー
+
+2007-03-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	setsockoptも明示するように変更
+
+2007-03-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	デバッグログ追加
+
+2007-03-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	参加を明示するように変更
+
+2007-03-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	関数の宣言追加
+
+2007-03-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	if_indexをunsignedに統一
+
+2007-03-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	バグ修正
+
+2007-03-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	明示的にマルチキャストに参加する手順を追加
+
+2007-03-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	マルチキャストインターフェースのログ
+
+2007-02-20  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	COPYING追加
+
+2007-01-28  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	make refman.dvi
+
+2007-01-27  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	add
+
+2007-01-27  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	add
+
+2007-01-27  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	make doc
+
+2007-01-22  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	staconfig
+
+2007-01-22  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	コメント書き換え
+
+2007-01-19  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	getnameinfoがエラーになっていたのを修正
+	sin6_familyを指定しておかないとEAI_FAMILY ai_family not supportedになってしまう
+
+2007-01-18  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	sizeof修正
+
+2007-01-18  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	getnameinfoエラー処理
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	fifoをreadして返値が負だったときの処理など
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー処理
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	trunkにデータがあるとcronで毎日触ることになるので
+	stamanagement直下にdataを置くようにした
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	警告を修正
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	pthread_createのミス修正
+	daemonの第2引数を1にして標準入出力を切り離さないようにした
+	printf追加
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	SIGTERMをもらったとき後を濁さず死ぬように変更中
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	シグナルハンドラ
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	fprintf
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	typo
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	fifo_path
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	udp_port
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	waiting_time
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	wlan_interface
+
+2007-01-17  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	コマンドライン引数
+
+2007-01-16  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	各種パラメータをコマンドライン引数で変更できるようにした
+
+2007-01-15  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	実験データ
+	とりあえずsandbox以下に全部投げ込みます
+
+2007-01-15  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	コマンドライン引数追加
+
+2007-01-14  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	tex
+
+2007-01-14  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	document file
+
+2007-01-14  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	make doc
+
+2007-01-13  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	実験用ログ追加
+	割り当て始める時、決定したとき
+	重複しているとき
+
+2007-01-13  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	デバッグ用ログ出力を削除
+
+2007-01-13  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	バグ修正
+	freeしすぎでした
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	すでにDAD中の場合は同じ手続きを繰り返さないようにした
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	syslogを一部削除
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	waiting_timeを3から10に変更
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	syslogを一部オフ
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	バグ修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	udp復活
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	タイムアウト関数をよぶとき&が必要だった
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	デバッグログ追加
+	デタッチされたスレッドのreturnをコメントアウト
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	ログ追加
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	ログを修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	delete_staしてなかったので修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	bindの引数修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	void *型の返値をNULLに修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	memcpy修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	memcpyのミスがたくさんあるなあ
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	gettimeofdayのまちがい修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+	とりあえずこれでコンパイルはとおるようになった段階
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	make all in tex directory
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	html update
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	tex update
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	recv_from_udp_child、リゾルバの場合を書いた。
+	これで一通りDAD処理を書き終わった
+
+2007-01-12  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	AREPパケットのビットフィールド
+
+2007-01-11  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	そういえばfreeしてなかった
+	あと2カ所くらいmallocがある
+
+2007-01-11  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	パケットのタイプ判定系の関数を実装
+
+2007-01-11  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	各種パケットのタイプを判別する関数を追加
+	ちょっと美しくない
+
+2007-01-11  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	最後に残った受信時の処理
+	場合分けを考えるのがむずいぜ
+
+2007-01-11  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	allocation_request_startで送るパケットの内容を定義して、書いた
+
+2007-01-11  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	パケットのタイプを表現する列挙型とか追加
+
+2007-01-11  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	allocation_request_timeoutを書いた
+
+2007-01-11  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	割り当て未完了状態の仮アドレスを保持するようにした
+
+2007-01-10  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	DAD書いてる途中
+
+2007-01-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	regenerate html docs
+
+2007-01-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	add tex directory
+
+2007-01-08  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	generate tex
+
+2007-01-06  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	DAD処理
+	リンクローカルマルチキャストを書いている途中
+
+2007-01-06  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	タイマーの最大数を減らした
+	実は1個でよかったかもしれない
+
+2007-01-05  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	UDP受信時、処理を実際に担当する子スレッドを書いてる途中なんですよまだ。。。
+
+2007-01-05  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	1/13テスト用に項目追加
+
+2006-12-31  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	警告を修正
+
+2006-12-31  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	警告を修正
+
+2006-12-31  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+
+2006-12-31  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+
+2006-12-31  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	DADの結果受信スレッド
+	受信だけする親玉は書けた
+
+2006-12-30  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+
+2006-12-30  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+
+2006-12-30  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	UDPでDADの結果をやりとりする部分を書いている途中
+
+2006-12-29  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	areqのstartとtimeoutを書き始めた
+
+2006-12-29  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	こちらもバグ修正
+
+2006-12-29  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	警告を修正 include文
+
+2006-12-29  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	pthread_cond_timedwaitを使って指定時間待つ本体部分
+
+2006-12-29  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	うまくいったので不要なコメント削除
+
+2006-12-29  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	警告を修正
+
+2006-12-29  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	timer書いてる途中
+
+2006-12-26  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+
+2006-12-26  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	エラー修正
+
+2006-12-26  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	int32_tをintに
+
+2006-12-26  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	タイマーを書いております
+
+2006-12-26  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	new line at end of file
+
+2006-12-26  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	OBJS追加
+
+2006-12-26  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	タイマーを追加
+
+2006-12-25  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	DADを書き始めた
+	これかなりむずいね
+
+2006-12-24  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	位置情報を表示するtextboxをつけた
+	Rubyに変換した
+
+2006-12-21  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	とりあえずこの程度の画面で済むかなあというイメージ
+
+2006-12-21  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	有効範囲確認is_inside_valid_range追加
+	緯度経度から長さへの変換lon2x、lat2yを追加
+
+2006-12-19  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	add more CFLAGS
+
+2006-12-18  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	ファイル先頭の空白消した
+
+2006-12-13  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	trunkディレクトリに移動
+
+2006-12-13  Satoshi OKANO  <okano@mcl.iis.u-tokyo.ac.jp>
+
+	trunkディレクトリ作成
+
+;; Local Variables:
+;; coding: utf-8
+;; End:

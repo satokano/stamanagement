@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=euc-jp">
+<title>STA Management Daemon: 構造体 _temporary_address_status</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.1 -->
+<div class="tabs">
+  <ul>
+    <li><a href="main.html"><span>メインページ</span></a></li>
+    <li id="current"><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="files.html"><span>ファイル</span></a></li>
+    <li><a href="pages.html"><span>関連ページ</span></a></li>
+  </ul></div>
+<div class="tabs">
+  <ul>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="functions.html"><span>データフィールド</span></a></li>
+  </ul></div>
+<h1>構造体 _temporary_address_status</h1><!-- doxytag: class="_temporary_address_status" -->割り当て未完了状態の仮アドレス  
+<a href="#_details">[詳細]</a>
+<p>
+<code>#include &lt;<a class="el" href="stamanagement_8h-source.html">stamanagement.h</a>&gt;</code>
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>変数</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">sockaddr_in6&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__temporary__address__status.html#7ba4c1553b119b8ccefdf4dcc2cdd2e3">address</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">仮のアドレス  <a href="#7ba4c1553b119b8ccefdf4dcc2cdd2e3"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">time_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__temporary__address__status.html#49a9f14a6ce5e86faff0d96db622a850">generated_time</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">pthread_mutex_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__temporary__address__status.html#aa17813c6a76779aeddef53f8aaba579">mutex</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="stamanagement_8h.html#388b9182590c423ed1edd610085e7448">address_status</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__temporary__address__status.html#5264f13a84f09455a2139d2cb8b8c3e2">flag</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">重複しているかどうか。0で重複なし、1であり。  <a href="#5264f13a84f09455a2139d2cb8b8c3e2"></a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+割り当て未完了状態の仮アドレス 
+<p>
+入力された位置情報に基づき生成したが まだDADの結果が出ず、割り当ては 完了していない仮のアドレス 
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00095">95</a> 行で定義されています。<hr><h2>構造体</h2>
+<a class="anchor" name="7ba4c1553b119b8ccefdf4dcc2cdd2e3"></a><!-- doxytag: member="_temporary_address_status::address" ref="7ba4c1553b119b8ccefdf4dcc2cdd2e3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct sockaddr_in6 <a class="el" href="struct__temporary__address__status.html#7ba4c1553b119b8ccefdf4dcc2cdd2e3">_temporary_address_status::address</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+仮のアドレス 
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00096">96</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00671">init_temporary_address_status()</a>.
+</div>
+</div><p>
+<a class="anchor" name="49a9f14a6ce5e86faff0d96db622a850"></a><!-- doxytag: member="_temporary_address_status::generated_time" ref="49a9f14a6ce5e86faff0d96db622a850" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">time_t <a class="el" href="struct__temporary__address__status.html#49a9f14a6ce5e86faff0d96db622a850">_temporary_address_status::generated_time</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00097">97</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00671">init_temporary_address_status()</a>.
+</div>
+</div><p>
+<a class="anchor" name="aa17813c6a76779aeddef53f8aaba579"></a><!-- doxytag: member="_temporary_address_status::mutex" ref="aa17813c6a76779aeddef53f8aaba579" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pthread_mutex_t <a class="el" href="struct__temporary__address__status.html#aa17813c6a76779aeddef53f8aaba579">_temporary_address_status::mutex</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00098">98</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00485">allocation_request_timeout()</a>・<a class="el" href="stamanagement_8c-source.html#l00671">init_temporary_address_status()</a>.
+</div>
+</div><p>
+<a class="anchor" name="5264f13a84f09455a2139d2cb8b8c3e2"></a><!-- doxytag: member="_temporary_address_status::flag" ref="5264f13a84f09455a2139d2cb8b8c3e2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stamanagement_8h.html#388b9182590c423ed1edd610085e7448">address_status</a> <a class="el" href="struct__temporary__address__status.html#5264f13a84f09455a2139d2cb8b8c3e2">_temporary_address_status::flag</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+重複しているかどうか。0で重複なし、1であり。 
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00099">99</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00485">allocation_request_timeout()</a>・<a class="el" href="stamanagement_8c-source.html#l00671">init_temporary_address_status()</a>.
+</div>
+</div><p>
+<hr>この構造体の説明は次のファイルから生成されました:<ul>
+<li><a class="el" href="stamanagement_8h-source.html">stamanagement.h</a></ul>
+<hr size="1"><address style="align: right;"><small>STA Management Daemonに対してSat Jan 27 18:50:23 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
+</body>
+</html>

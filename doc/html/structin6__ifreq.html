@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=euc-jp">
+<title>STA Management Daemon: 構造体 in6_ifreq</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.1 -->
+<div class="tabs">
+  <ul>
+    <li><a href="main.html"><span>メインページ</span></a></li>
+    <li id="current"><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="files.html"><span>ファイル</span></a></li>
+    <li><a href="pages.html"><span>関連ページ</span></a></li>
+  </ul></div>
+<div class="tabs">
+  <ul>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="functions.html"><span>データフィールド</span></a></li>
+  </ul></div>
+<h1>構造体 in6_ifreq</h1><!-- doxytag: class="in6_ifreq" --><a class="el" href="structin6__ifreq.html">in6_ifreq</a>  
+<a href="#_details">[詳細]</a>
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>変数</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">in6_addr&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structin6__ifreq.html#c42518a11ef89651f83a1407969fb303">ifr6_addr</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structin6__ifreq.html#aa90545d34462d8eac46393ea8a5469c">ifr6_prefixlen</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structin6__ifreq.html#d419deb2f8fee6d9d0ae797261b1e6c2">ifr6_ifindex</a></td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+<a class="el" href="structin6__ifreq.html">in6_ifreq</a> 
+<p>
+This is in linux/include/net/ipv6.h.<p>
+ipv6.hをインクルードするとlinux/in6.hが芋づるされるが in6.hはユーザー空間のアプリケーションでは使用禁止で 代わりにnetinet/in.hを使え、とin6.hに書いてある。 だがin6.hだけだとin6_ifreqの定義がないので別に宣言する必要がある ……のだと思う。ifconfigではそうなってるぽい。 __u32をuint32_tに書き換えた。__u32はPOSIXだがasm/types.hにしか定義がない。 
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00067">67</a> 行で定義されています。<hr><h2>構造体</h2>
+<a class="anchor" name="c42518a11ef89651f83a1407969fb303"></a><!-- doxytag: member="in6_ifreq::ifr6_addr" ref="c42518a11ef89651f83a1407969fb303" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct in6_addr <a class="el" href="structin6__ifreq.html#c42518a11ef89651f83a1407969fb303">in6_ifreq::ifr6_addr</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00068">68</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00355">add_sta()</a>・<a class="el" href="stamanagement_8c-source.html#l00401">delete_sta()</a>.
+</div>
+</div><p>
+<a class="anchor" name="aa90545d34462d8eac46393ea8a5469c"></a><!-- doxytag: member="in6_ifreq::ifr6_prefixlen" ref="aa90545d34462d8eac46393ea8a5469c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t <a class="el" href="structin6__ifreq.html#aa90545d34462d8eac46393ea8a5469c">in6_ifreq::ifr6_prefixlen</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00069">69</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00355">add_sta()</a>・<a class="el" href="stamanagement_8c-source.html#l00401">delete_sta()</a>.
+</div>
+</div><p>
+<a class="anchor" name="d419deb2f8fee6d9d0ae797261b1e6c2"></a><!-- doxytag: member="in6_ifreq::ifr6_ifindex" ref="d419deb2f8fee6d9d0ae797261b1e6c2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="structin6__ifreq.html#d419deb2f8fee6d9d0ae797261b1e6c2">in6_ifreq::ifr6_ifindex</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00070">70</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00355">add_sta()</a>・<a class="el" href="stamanagement_8c-source.html#l00401">delete_sta()</a>.
+</div>
+</div><p>
+<hr>この構造体の説明は次のファイルから生成されました:<ul>
+<li><a class="el" href="stamanagement_8c-source.html">stamanagement.c</a></ul>
+<hr size="1"><address style="align: right;"><small>STA Management Daemonに対してSat Jan 27 18:50:23 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
+</body>
+</html>

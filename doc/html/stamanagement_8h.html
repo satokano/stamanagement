@@ -1,0 +1,1305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=euc-jp">
+<title>STA Management Daemon: stamanagement.h</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.1 -->
+<div class="tabs">
+  <ul>
+    <li><a href="main.html"><span>メインページ</span></a></li>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li id="current"><a href="files.html"><span>ファイル</span></a></li>
+    <li><a href="pages.html"><span>関連ページ</span></a></li>
+  </ul></div>
+<div class="tabs">
+  <ul>
+    <li><a href="files.html"><span>ファイル一覧</span></a></li>
+    <li><a href="globals.html"><span>グローバル</span></a></li>
+  </ul></div>
+<h1>stamanagement.h</h1>STA Management Daemon STAのセット、更新などを行うデーモン <a href="#_details">[詳細]</a>
+<p>
+
+<p>
+このグラフは、どのファイルから直接、間接的にインクルードされているかを示しています。<p><center><img src="stamanagement_8h__dep__incl.png" border="0" usemap="#stamanagement.hdep_map" alt=""></center>
+<map name="stamanagement.hdep_map">
+<area href="stamanagement_8c.html" shape="rect" coords="178,8,301,32" alt="">
+</map>
+
+<p>
+<a href="stamanagement_8h-source.html">ソースコードを見る。</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>データ構造</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__PositionOut.html">_PositionOut</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">ミドルウェアからの出力  <a href="struct__PositionOut.html#_details">[詳細]</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__pthreadarg__addr__buf.html">_pthreadarg_addr_buf</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">recv_from_udp_child関数の引数  <a href="struct__pthreadarg__addr__buf.html#_details">[詳細]</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__temporary__address__status.html">_temporary_address_status</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">割り当て未完了状態の仮アドレス  <a href="struct__temporary__address__status.html#_details">[詳細]</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__arep__flag__reserved.html">_arep_flag_reserved</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">AREPパケットの16から31ビット目  <a href="struct__arep__flag__reserved.html#_details">[詳細]</a><br></td></tr>
+<tr><td colspan="2"><br><h2>マクロ定義</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#ad4faa9cbd31e932b5cd29353d37367d">FIFOPATH</a>&nbsp;&nbsp;&nbsp;&quot;/tmp/sta.fifo&quot;</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#6dc1ddf30ef2898033f14154d74b4c50">WLAN_INTERFACE</a>&nbsp;&nbsp;&nbsp;&quot;ath0&quot;</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#96d13532625730eddbdf008e03926fc8">WAITING_TIME</a>&nbsp;&nbsp;&nbsp;10</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">second  <a href="#96d13532625730eddbdf008e03926fc8"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#a6186b8924bae52ceeb5c517c28d777f">UDP_PORT_NUMBER</a>&nbsp;&nbsp;&nbsp;5003</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">GPSRのDEFAULT_DAEMON_PORT、DEFAULT_OAM_PORTの次  <a href="#a6186b8924bae52ceeb5c517c28d777f"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#e28364758871ae4d32f458be867cb861">UDP_RECV_BUF_SIZE</a>&nbsp;&nbsp;&nbsp;512</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#672a0a959b5ef7ca9fbdaff35cf129d1">IN6ADDR_MC_LINKLOCAL_INIT</a>&nbsp;&nbsp;&nbsp;{ { { 0xff,0x02,0,0,0,0,0,0,0,0,0,0,0,0,0,0x1 } } }</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#e1b5756eb552a240b40b0d39b865e96a">AREQ_PACKET_SIZE</a>&nbsp;&nbsp;&nbsp;160</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#c1138f9b1cc919d42ca13b14ba4dd581">AREP_PACKET_SIZE</a>&nbsp;&nbsp;&nbsp;160</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#86d500a34c624c2cae56bc25a31b12f3">UNUSED</a>(x)&nbsp;&nbsp;&nbsp;((void)(x))</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#1fc4ca40df850703f916d515f1d8ba8b">IN6_IS_ADDR_STA</a>(a)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">STAか判定する。  <a href="#1fc4ca40df850703f916d515f1d8ba8b"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>型定義</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef enum <a class="el" href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f421">_address_status</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#388b9182590c423ed1edd610085e7448">address_status</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">アドレスの状態を表現するための列挙型  <a href="#388b9182590c423ed1edd610085e7448"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef enum <a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474b">_packet_type</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#8f61e42cb442d38d975fa352cc500746">packet_type</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">パケットのタイプを表現するための列挙型  <a href="#8f61e42cb442d38d975fa352cc500746"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#62359926ded8ff1af39d92efc85a4382">matrix_t</a> [4]</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">分散共分散行列  <a href="#62359926ded8ff1af39d92efc85a4382"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="struct__PositionOut.html">_PositionOut</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#acb89d60db8c992170af46dac5d787dc">PositionOut</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">ミドルウェアからの出力  <a href="#acb89d60db8c992170af46dac5d787dc"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="struct__pthreadarg__addr__buf.html">_pthreadarg_addr_buf</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#d42fbaa22169976ef9d607229dbfdc11">pthreadarg_addr_buf</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">recv_from_udp_child関数の引数  <a href="#d42fbaa22169976ef9d607229dbfdc11"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="struct__temporary__address__status.html">_temporary_address_status</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#08cc9f06afdd810f4070b22221449471">temporary_address_status</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">割り当て未完了状態の仮アドレス  <a href="#08cc9f06afdd810f4070b22221449471"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="struct__arep__flag__reserved.html">_arep_flag_reserved</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#01ae133cdf2f9c667947bca54e1718a8">arep_flag_reserved</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">AREPパケットの16から31ビット目  <a href="#01ae133cdf2f9c667947bca54e1718a8"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>列挙型</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f421">_address_status</a> { <a class="el" href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f42148610025b91763a4a8f6d4702fcc57c8">DAD</a>, 
+<a class="el" href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f4216d0b42a4ceb4a0594120df04371fad5f">DUPLICATE</a>, 
+<a class="el" href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f421fd16671b5c3e4028ede353a9ace809df">NOT_DUPLICATE</a>
+ }</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">アドレスの状態を表現するための列挙型  <a href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f421">[詳細]</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474b">_packet_type</a> { <a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474b9ab10d084d2aa43c5a5fee1ae99a8968">AREQ</a>, 
+<a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474be863e27205922cf102ddede0f91a1311">AREP</a>
+ }</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">パケットのタイプを表現するための列挙型  <a href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474b">[詳細]</a><br></td></tr>
+<tr><td colspan="2"><br><h2>関数</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#4594982b4b7c93034dde116a25ef701b">add_sta</a> (struct sockaddr_in6 *newsta)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#d870eaad22c93853e0bb544274d6699b">allocation_request_start</a> (struct sockaddr_in6 newsta)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#143102ba170df334383a6ce85b74c5d5">allocation_request_timeout</a> (void)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#9b23299962baf5c9ed9111c279eeacfe">decode_from_sta</a> (struct in6_addr *sta, <a class="el" href="struct__PositionOut.html">PositionOut</a> *po)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#de7e1ba2d15a89b76013f06794fc111b">delete_sta</a> (struct sockaddr_in6 *oldsta)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#4f0d36fa91dbfcb9acebfb2df7d1b5b3">encode_to_sta</a> (<a class="el" href="struct__PositionOut.html">PositionOut</a> po, struct in6_addr *newsta)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#ef019ef18a588d7ec1c27c3ca3a11892">get_socket_for_afinet6</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#1cc481b5987378c013d3437c5ffafa37">in6_addr_equal</a> (const struct in6_addr *a, const struct in6_addr *b)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#b317ba093a3ca1c991825df4ddeaf4c6">init_parameters</a> (void)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#e58d564f617415404afea0d1dc64a96d">init_temporary_address_status</a> (void)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">仮アドレスの構造体を初期化  <a href="#e58d564f617415404afea0d1dc64a96d"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#e34c0c5c945089f9ac2e713b3c1ea11c">init_udp_socket</a> (pthread_t recv_from_udp_thread_id)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#b0d5fc7ffa90be68cc7cc71dd629d90e">is_inside_valid_range</a> (const <a class="el" href="struct__PositionOut.html">PositionOut</a> *const real, const <a class="el" href="struct__PositionOut.html">PositionOut</a> *const decoded)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#2a20974208b6a1ef316e2b916f18e93f">sigaction_handler</a> (int sig, siginfo_t *si, void *context)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#d96d407a911fbb914fa8e4cfbf2faf0f">usage</a> (void)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#ba0b62497c20a7255bbaf093703ba13b">lat2y</a> (double lat)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#3b4cf741910b0a78cf0e191ec8532fcd">lon2x</a> (double lon, double lat)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#882776ace026a93631fc479af2baba3f">packet_type_is_areq</a> (char *buf)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#d5afe3d4e60726265351ff358448cc81">packet_type_is_arep</a> (char *buf)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#71926b77bb44d1116dd86f6ffde9d94a">is_duplicate</a> (char *buf)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#00324e0b02ef9c19bcc630c1e8b687ee">recv_from_fifo</a> (void *arg)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">FIFOからの受信  <a href="#00324e0b02ef9c19bcc630c1e8b687ee"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#b436a10cb3c132bafcbe3d218958c0ba">recv_from_udp</a> (void *arg)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">DADのためのUDP受信処理  <a href="#b436a10cb3c132bafcbe3d218958c0ba"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#00b89cb54db657bc21c6afe770b65c66">recv_from_udp_child</a> (void *arg)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">DADのためのUDP受信、子スレッド  <a href="#00b89cb54db657bc21c6afe770b65c66"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>変数</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#a2339b21f98abccd12533a54d5f9d712">daemonize</a> = 1</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#64d743b19034f4f56fe32383fd890b00">fifo_path</a> [256]</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#5eb693f34f101730533b75627415bcf6">wlan_interface</a> [5]</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#8080d4d36d5d3d072be611a95f864ac1">udp_port</a> = 0</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#852214fee107d32377ac550a65b57637">waiting_time</a> = 0</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#d2c8fb3df3a737e0685e902870a611d2">sockfd</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">UDP受信ソケットのディスクリプタ  <a href="#d2c8fb3df3a737e0685e902870a611d2"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct__temporary__address__status.html">temporary_address_status</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#37ce4b0b1ed4cf613fd5da9a23aad729">temp_address</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">割り当て未完了状態の仮アドレス  <a href="#37ce4b0b1ed4cf613fd5da9a23aad729"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static struct in6_addr&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#91bb6dfcba13de586d77afd7ae5631e3">in6addr_linklocalmulticast</a> = IN6ADDR_MC_LINKLOCAL_INIT</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static volatile sig_atomic_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="stamanagement_8h.html#3a342de928b87eb91a4dc575124c38ad">srv_shutdown</a> = 0</td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+STA Management Daemon STAのセット、更新などを行うデーモン 
+<p>
+<dl class="author" compact><dt><b>作者:</b></dt><dd>Satoshi OKANO &lt;<a href="mailto:okano@mcl.iis.u-tokyo.ac.jp">okano@mcl.iis.u-tokyo.ac.jp</a>&gt; </dd></dl>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> で定義されています。<hr><h2>マクロ定義</h2>
+<a class="anchor" name="c1138f9b1cc919d42ca13b14ba4dd581"></a><!-- doxytag: member="stamanagement.h::AREP_PACKET_SIZE" ref="c1138f9b1cc919d42ca13b14ba4dd581" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AREP_PACKET_SIZE&nbsp;&nbsp;&nbsp;160          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00018">18</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00742">recv_from_udp_child()</a>.
+</div>
+</div><p>
+<a class="anchor" name="e1b5756eb552a240b40b0d39b865e96a"></a><!-- doxytag: member="stamanagement.h::AREQ_PACKET_SIZE" ref="e1b5756eb552a240b40b0d39b865e96a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AREQ_PACKET_SIZE&nbsp;&nbsp;&nbsp;160          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00017">17</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00440">allocation_request_start()</a>.
+</div>
+</div><p>
+<a class="anchor" name="ad4faa9cbd31e932b5cd29353d37367d"></a><!-- doxytag: member="stamanagement.h::FIFOPATH" ref="ad4faa9cbd31e932b5cd29353d37367d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FIFOPATH&nbsp;&nbsp;&nbsp;&quot;/tmp/sta.fifo&quot;          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00011">11</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00908">init_parameters()</a>・<a class="el" href="stamanagement_8c-source.html#l00924">usage()</a>.
+</div>
+</div><p>
+<a class="anchor" name="1fc4ca40df850703f916d515f1d8ba8b"></a><!-- doxytag: member="stamanagement.h::IN6_IS_ADDR_STA" ref="1fc4ca40df850703f916d515f1d8ba8b" args="(a)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IN6_IS_ADDR_STA          </td>
+          <td>(</td>
+          <td class="paramtype">a&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<b>値:</b><div class="fragment"><pre class="fragment">(((__const uint16_t *) (a))[0] == htons(0x2001)                   \
+     &amp;&amp; ((__const uint16_t *) (a))[1] == htons(0x200)                     \
+     &amp;&amp; ((__const uint16_t *) (a))[2] == 0)
+</pre></div>STAか判定する。 
+<p>
+プレフィックスをみてSTAかどうか判定する。 netinet/in.hにアドレスの種類判別用マクロなど便利なのがいろいろあるので それを参考にした。 
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00030">30</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00485">allocation_request_timeout()</a>・<a class="el" href="stamanagement_8c-source.html#l00310">decode_from_sta()</a>・<a class="el" href="stamanagement_8c-source.html#l00094">recv_from_fifo()</a>・<a class="el" href="stamanagement_8c-source.html#l00742">recv_from_udp_child()</a>.
+</div>
+</div><p>
+<a class="anchor" name="672a0a959b5ef7ca9fbdaff35cf129d1"></a><!-- doxytag: member="stamanagement.h::IN6ADDR_MC_LINKLOCAL_INIT" ref="672a0a959b5ef7ca9fbdaff35cf129d1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IN6ADDR_MC_LINKLOCAL_INIT&nbsp;&nbsp;&nbsp;{ { { 0xff,0x02,0,0,0,0,0,0,0,0,0,0,0,0,0,0x1 } } }          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00016">16</a> 行で定義されています。
+</div>
+</div><p>
+<a class="anchor" name="a6186b8924bae52ceeb5c517c28d777f"></a><!-- doxytag: member="stamanagement.h::UDP_PORT_NUMBER" ref="a6186b8924bae52ceeb5c517c28d777f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UDP_PORT_NUMBER&nbsp;&nbsp;&nbsp;5003          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+GPSRのDEFAULT_DAEMON_PORT、DEFAULT_OAM_PORTの次 
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00014">14</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00908">init_parameters()</a>・<a class="el" href="stamanagement_8c-source.html#l00924">usage()</a>.
+</div>
+</div><p>
+<a class="anchor" name="e28364758871ae4d32f458be867cb861"></a><!-- doxytag: member="stamanagement.h::UDP_RECV_BUF_SIZE" ref="e28364758871ae4d32f458be867cb861" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UDP_RECV_BUF_SIZE&nbsp;&nbsp;&nbsp;512          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00015">15</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00685">recv_from_udp()</a>.
+</div>
+</div><p>
+<a class="anchor" name="86d500a34c624c2cae56bc25a31b12f3"></a><!-- doxytag: member="stamanagement.h::UNUSED" ref="86d500a34c624c2cae56bc25a31b12f3" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UNUSED          </td>
+          <td>(</td>
+          <td class="paramtype">x&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%">&nbsp;&nbsp;&nbsp;((void)(x))</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00021">21</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00094">recv_from_fifo()</a>・<a class="el" href="stamanagement_8c-source.html#l00685">recv_from_udp()</a>・<a class="el" href="stamanagement_8c-source.html#l00889">sigaction_handler()</a>.
+</div>
+</div><p>
+<a class="anchor" name="96d13532625730eddbdf008e03926fc8"></a><!-- doxytag: member="stamanagement.h::WAITING_TIME" ref="96d13532625730eddbdf008e03926fc8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WAITING_TIME&nbsp;&nbsp;&nbsp;10          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+second 
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00013">13</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00908">init_parameters()</a>・<a class="el" href="stamanagement_8c-source.html#l00924">usage()</a>.
+</div>
+</div><p>
+<a class="anchor" name="6dc1ddf30ef2898033f14154d74b4c50"></a><!-- doxytag: member="stamanagement.h::WLAN_INTERFACE" ref="6dc1ddf30ef2898033f14154d74b4c50" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WLAN_INTERFACE&nbsp;&nbsp;&nbsp;&quot;ath0&quot;          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00012">12</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00908">init_parameters()</a>・<a class="el" href="stamanagement_8c-source.html#l00924">usage()</a>.
+</div>
+</div><p>
+<hr><h2>型定義</h2>
+<a class="anchor" name="388b9182590c423ed1edd610085e7448"></a><!-- doxytag: member="stamanagement.h::address_status" ref="388b9182590c423ed1edd610085e7448" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f421">_address_status</a>  <a class="el" href="stamanagement_8h.html#388b9182590c423ed1edd610085e7448">address_status</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+アドレスの状態を表現するための列挙型 
+<p>
+DADしている途中、重複あり、重複なしの3状態を表現する。 
+</div>
+</div><p>
+<a class="anchor" name="01ae133cdf2f9c667947bca54e1718a8"></a><!-- doxytag: member="stamanagement.h::arep_flag_reserved" ref="01ae133cdf2f9c667947bca54e1718a8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct__arep__flag__reserved.html">_arep_flag_reserved</a>  <a class="el" href="struct__arep__flag__reserved.html">arep_flag_reserved</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+AREPパケットの16から31ビット目 
+<p>
+AREPパケットの16から31ビット目、1ビットのAREP_FLAGと 15ビットの予約領域からなる。 
+</div>
+</div><p>
+<a class="anchor" name="62359926ded8ff1af39d92efc85a4382"></a><!-- doxytag: member="stamanagement.h::matrix_t" ref="62359926ded8ff1af39d92efc85a4382" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef double <a class="el" href="stamanagement_8h.html#62359926ded8ff1af39d92efc85a4382">matrix_t</a>[4]          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+分散共分散行列 
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00059">59</a> 行で定義されています。
+</div>
+</div><p>
+<a class="anchor" name="8f61e42cb442d38d975fa352cc500746"></a><!-- doxytag: member="stamanagement.h::packet_type" ref="8f61e42cb442d38d975fa352cc500746" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474b">_packet_type</a>  <a class="el" href="stamanagement_8h.html#8f61e42cb442d38d975fa352cc500746">packet_type</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+パケットのタイプを表現するための列挙型 
+<p>
+AREQ、AREPなどパケットのタイプ 
+</div>
+</div><p>
+<a class="anchor" name="acb89d60db8c992170af46dac5d787dc"></a><!-- doxytag: member="stamanagement.h::PositionOut" ref="acb89d60db8c992170af46dac5d787dc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct__PositionOut.html">_PositionOut</a>  <a class="el" href="struct__PositionOut.html">PositionOut</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+ミドルウェアからの出力 
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="d42fbaa22169976ef9d607229dbfdc11"></a><!-- doxytag: member="stamanagement.h::pthreadarg_addr_buf" ref="d42fbaa22169976ef9d607229dbfdc11" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct__pthreadarg__addr__buf.html">_pthreadarg_addr_buf</a>  <a class="el" href="struct__pthreadarg__addr__buf.html">pthreadarg_addr_buf</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+recv_from_udp_child関数の引数 
+<p>
+recv_from_udp_child関数の引数の型。 送信元アドレスとデータが格納されているバッファのアドレス。 
+</div>
+</div><p>
+<a class="anchor" name="08cc9f06afdd810f4070b22221449471"></a><!-- doxytag: member="stamanagement.h::temporary_address_status" ref="08cc9f06afdd810f4070b22221449471" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct__temporary__address__status.html">_temporary_address_status</a>  <a class="el" href="struct__temporary__address__status.html">temporary_address_status</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+割り当て未完了状態の仮アドレス 
+<p>
+入力された位置情報に基づき生成したが まだDADの結果が出ず、割り当ては 完了していない仮のアドレス 
+</div>
+</div><p>
+<hr><h2>列挙型</h2>
+<a class="anchor" name="1ed672415919c5a0646a9909e016f421"></a><!-- doxytag: member="stamanagement.h::_address_status" ref="1ed672415919c5a0646a9909e016f421" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f421">_address_status</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+アドレスの状態を表現するための列挙型 
+<p>
+DADしている途中、重複あり、重複なしの3状態を表現する。 <dl compact><dt><b>列挙型の値: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="1ed672415919c5a0646a9909e016f42148610025b91763a4a8f6d4702fcc57c8"></a><!-- doxytag: member="DAD" ref="1ed672415919c5a0646a9909e016f42148610025b91763a4a8f6d4702fcc57c8" args="" -->DAD</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="1ed672415919c5a0646a9909e016f4216d0b42a4ceb4a0594120df04371fad5f"></a><!-- doxytag: member="DUPLICATE" ref="1ed672415919c5a0646a9909e016f4216d0b42a4ceb4a0594120df04371fad5f" args="" -->DUPLICATE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="1ed672415919c5a0646a9909e016f421fd16671b5c3e4028ede353a9ace809df"></a><!-- doxytag: member="NOT_DUPLICATE" ref="1ed672415919c5a0646a9909e016f421fd16671b5c3e4028ede353a9ace809df" args="" -->NOT_DUPLICATE</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00040">40</a> 行で定義されています。
+</div>
+</div><p>
+<a class="anchor" name="bc6e8f82175898b9c0bc5049571b474b"></a><!-- doxytag: member="stamanagement.h::_packet_type" ref="bc6e8f82175898b9c0bc5049571b474b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474b">_packet_type</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+パケットのタイプを表現するための列挙型 
+<p>
+AREQ、AREPなどパケットのタイプ <dl compact><dt><b>列挙型の値: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="bc6e8f82175898b9c0bc5049571b474b9ab10d084d2aa43c5a5fee1ae99a8968"></a><!-- doxytag: member="AREQ" ref="bc6e8f82175898b9c0bc5049571b474b9ab10d084d2aa43c5a5fee1ae99a8968" args="" -->AREQ</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="bc6e8f82175898b9c0bc5049571b474be863e27205922cf102ddede0f91a1311"></a><!-- doxytag: member="AREP" ref="bc6e8f82175898b9c0bc5049571b474be863e27205922cf102ddede0f91a1311" args="" -->AREP</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dl>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00051">51</a> 行で定義されています。
+</div>
+</div><p>
+<hr><h2>関数</h2>
+<a class="anchor" name="4594982b4b7c93034dde116a25ef701b"></a><!-- doxytag: member="stamanagement.h::add_sta" ref="4594982b4b7c93034dde116a25ef701b" args="(struct sockaddr_in6 *newsta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int add_sta           </td>
+          <td>(</td>
+          <td class="paramtype">struct sockaddr_in6 *&nbsp;</td>
+          <td class="paramname"> <em>newsta</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="d870eaad22c93853e0bb544274d6699b"></a><!-- doxytag: member="stamanagement.h::allocation_request_start" ref="d870eaad22c93853e0bb544274d6699b" args="(struct sockaddr_in6 newsta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int allocation_request_start           </td>
+          <td>(</td>
+          <td class="paramtype">struct sockaddr_in6&nbsp;</td>
+          <td class="paramname"> <em>newsta</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="143102ba170df334383a6ce85b74c5d5"></a><!-- doxytag: member="stamanagement.h::allocation_request_timeout" ref="143102ba170df334383a6ce85b74c5d5" args="(void)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void allocation_request_timeout           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="9b23299962baf5c9ed9111c279eeacfe"></a><!-- doxytag: member="stamanagement.h::decode_from_sta" ref="9b23299962baf5c9ed9111c279eeacfe" args="(struct in6_addr *sta, PositionOut *po)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int decode_from_sta           </td>
+          <td>(</td>
+          <td class="paramtype">struct in6_addr *&nbsp;</td>
+          <td class="paramname"> <em>sta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct__PositionOut.html">PositionOut</a> *&nbsp;</td>
+          <td class="paramname"> <em>po</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="de7e1ba2d15a89b76013f06794fc111b"></a><!-- doxytag: member="stamanagement.h::delete_sta" ref="de7e1ba2d15a89b76013f06794fc111b" args="(struct sockaddr_in6 *oldsta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int delete_sta           </td>
+          <td>(</td>
+          <td class="paramtype">struct sockaddr_in6 *&nbsp;</td>
+          <td class="paramname"> <em>oldsta</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="4f0d36fa91dbfcb9acebfb2df7d1b5b3"></a><!-- doxytag: member="stamanagement.h::encode_to_sta" ref="4f0d36fa91dbfcb9acebfb2df7d1b5b3" args="(PositionOut po, struct in6_addr *newsta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int encode_to_sta           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__PositionOut.html">PositionOut</a>&nbsp;</td>
+          <td class="paramname"> <em>po</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct in6_addr *&nbsp;</td>
+          <td class="paramname"> <em>newsta</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="ef019ef18a588d7ec1c27c3ca3a11892"></a><!-- doxytag: member="stamanagement.h::get_socket_for_afinet6" ref="ef019ef18a588d7ec1c27c3ca3a11892" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int get_socket_for_afinet6           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="1cc481b5987378c013d3437c5ffafa37"></a><!-- doxytag: member="stamanagement.h::in6_addr_equal" ref="1cc481b5987378c013d3437c5ffafa37" args="(const struct in6_addr *a, const struct in6_addr *b)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int in6_addr_equal           </td>
+          <td>(</td>
+          <td class="paramtype">const struct in6_addr *&nbsp;</td>
+          <td class="paramname"> <em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct in6_addr *&nbsp;</td>
+          <td class="paramname"> <em>b</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="b317ba093a3ca1c991825df4ddeaf4c6"></a><!-- doxytag: member="stamanagement.h::init_parameters" ref="b317ba093a3ca1c991825df4ddeaf4c6" args="(void)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void init_parameters           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="e58d564f617415404afea0d1dc64a96d"></a><!-- doxytag: member="stamanagement.h::init_temporary_address_status" ref="e58d564f617415404afea0d1dc64a96d" args="(void)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void init_temporary_address_status           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+仮アドレスの構造体を初期化 
+<p>
+仮アドレスの構造体を初期化する。 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00671">671</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00096">_temporary_address_status::address</a>・<a class="el" href="stamanagement_8h-source.html#l00099">_temporary_address_status::flag</a>・<a class="el" href="stamanagement_8h-source.html#l00097">_temporary_address_status::generated_time</a>・<a class="el" href="stamanagement_8h-source.html#l00098">_temporary_address_status::mutex</a>・<a class="el" href="stamanagement_8h.html#1ed672415919c5a0646a9909e016f421fd16671b5c3e4028ede353a9ace809df">NOT_DUPLICATE</a>・<a class="el" href="stamanagement_8h-source.html#l00119">temp_address</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+</div>
+</div><p>
+<a class="anchor" name="e34c0c5c945089f9ac2e713b3c1ea11c"></a><!-- doxytag: member="stamanagement.h::init_udp_socket" ref="e34c0c5c945089f9ac2e713b3c1ea11c" args="(pthread_t recv_from_udp_thread_id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int init_udp_socket           </td>
+          <td>(</td>
+          <td class="paramtype">pthread_t&nbsp;</td>
+          <td class="paramname"> <em>recv_from_udp_thread_id</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="71926b77bb44d1116dd86f6ffde9d94a"></a><!-- doxytag: member="stamanagement.h::is_duplicate" ref="71926b77bb44d1116dd86f6ffde9d94a" args="(char *buf)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int is_duplicate           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>buf</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="b0d5fc7ffa90be68cc7cc71dd629d90e"></a><!-- doxytag: member="stamanagement.h::is_inside_valid_range" ref="b0d5fc7ffa90be68cc7cc71dd629d90e" args="(const PositionOut *const real, const PositionOut *const decoded)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int is_inside_valid_range           </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct__PositionOut.html">PositionOut</a> *const &nbsp;</td>
+          <td class="paramname"> <em>real</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct__PositionOut.html">PositionOut</a> *const &nbsp;</td>
+          <td class="paramname"> <em>decoded</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="ba0b62497c20a7255bbaf093703ba13b"></a><!-- doxytag: member="stamanagement.h::lat2y" ref="ba0b62497c20a7255bbaf093703ba13b" args="(double lat)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double lat2y           </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>lat</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="3b4cf741910b0a78cf0e191ec8532fcd"></a><!-- doxytag: member="stamanagement.h::lon2x" ref="3b4cf741910b0a78cf0e191ec8532fcd" args="(double lon, double lat)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double lon2x           </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>lon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>lat</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="d5afe3d4e60726265351ff358448cc81"></a><!-- doxytag: member="stamanagement.h::packet_type_is_arep" ref="d5afe3d4e60726265351ff358448cc81" args="(char *buf)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int packet_type_is_arep           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>buf</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="882776ace026a93631fc479af2baba3f"></a><!-- doxytag: member="stamanagement.h::packet_type_is_areq" ref="882776ace026a93631fc479af2baba3f" args="(char *buf)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int packet_type_is_areq           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>buf</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="00324e0b02ef9c19bcc630c1e8b687ee"></a><!-- doxytag: member="stamanagement.h::recv_from_fifo" ref="00324e0b02ef9c19bcc630c1e8b687ee" args="(void *arg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* recv_from_fifo           </td>
+          <td>(</td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>arg</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+FIFOからの受信 
+<p>
+ミドルウェアからFIFO経由でデータを受信する <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>arg</em>&nbsp;</td><td>実質使われていない </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>0</em>&nbsp;</td><td>0を返す </td></tr>
+  </table>
+</dl>
+
+<p>
+&lt; FIFOのためのfd<p>
+&lt; oldsta_sin6中のin6_addrを指す 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00094">94</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00114">fifo_path</a>・<a class="el" href="stamanagement_8h-source.html#l00030">IN6_IS_ADDR_STA</a>・<a class="el" href="stamanagement_8h-source.html#l00122">srv_shutdown</a>・<a class="el" href="stamanagement_8h-source.html#l00021">UNUSED</a>・<a class="el" href="stamanagement_8h-source.html#l00115">wlan_interface</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+</div>
+</div><p>
+<a class="anchor" name="b436a10cb3c132bafcbe3d218958c0ba"></a><!-- doxytag: member="stamanagement.h::recv_from_udp" ref="b436a10cb3c132bafcbe3d218958c0ba" args="(void *arg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* recv_from_udp           </td>
+          <td>(</td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>arg</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+DADのためのUDP受信処理 
+<p>
+DADの結果の受信スレッド処理。 受信だけしてすぐにさらなる子スレッドに処理を任せる。 自分がスタータの場合はDADの返答を受け取る、リゾルバの場合はAREQを受け取る 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00685">685</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h-source.html#l00084">_pthreadarg_addr_buf::buf</a>・<a class="el" href="stamanagement_8h-source.html#l00083">_pthreadarg_addr_buf::fromaddr</a>・<a class="el" href="stamanagement_8c-source.html#l00742">recv_from_udp_child()</a>・<a class="el" href="stamanagement_8h-source.html#l00118">sockfd</a>・<a class="el" href="stamanagement_8h-source.html#l00122">srv_shutdown</a>・<a class="el" href="stamanagement_8h-source.html#l00015">UDP_RECV_BUF_SIZE</a>・<a class="el" href="stamanagement_8h-source.html#l00021">UNUSED</a>・<a class="el" href="stamanagement_8h-source.html#l00085">_pthreadarg_addr_buf::usedlen</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00631">init_udp_socket()</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="stamanagement_8h_b436a10cb3c132bafcbe3d218958c0ba_cgraph.png" border="0" usemap="#stamanagement_8h_b436a10cb3c132bafcbe3d218958c0ba_cgraph_map" alt=""></center>
+<map name="stamanagement_8h_b436a10cb3c132bafcbe3d218958c0ba_cgraph_map">
+<area href="stamanagement_8c.html#00b89cb54db657bc21c6afe770b65c66" shape="rect" coords="165,8,314,32" alt="">
+<area href="stamanagement_8c.html#882776ace026a93631fc479af2baba3f" shape="rect" coords="364,8,510,32" alt="">
+</map>
+
+</div>
+</div><p>
+<a class="anchor" name="00b89cb54db657bc21c6afe770b65c66"></a><!-- doxytag: member="stamanagement.h::recv_from_udp_child" ref="00b89cb54db657bc21c6afe770b65c66" args="(void *arg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* recv_from_udp_child           </td>
+          <td>(</td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>arg</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+DADのためのUDP受信、子スレッド 
+<p>
+実際の処理を受け持つ子スレッド 自分がスタータの場合はDADの返答を受け取る、リゾルバの場合はAREQを受け取る 
+<p>
+ <a class="el" href="stamanagement_8c-source.html">stamanagement.c</a> の <a class="el" href="stamanagement_8c-source.html#l00742">742</a> 行で定義されています。
+<p>
+参照先 <a class="el" href="stamanagement_8h.html#bc6e8f82175898b9c0bc5049571b474be863e27205922cf102ddede0f91a1311">AREP</a>・<a class="el" href="stamanagement_8h-source.html#l00018">AREP_PACKET_SIZE</a>・<a class="el" href="stamanagement_8h-source.html#l00084">_pthreadarg_addr_buf::buf</a>・<a class="el" href="stamanagement_8h-source.html#l00083">_pthreadarg_addr_buf::fromaddr</a>・<a class="el" href="stamanagement_8h-source.html#l00030">IN6_IS_ADDR_STA</a>・<a class="el" href="stamanagement_8c-source.html#l00832">packet_type_is_areq()</a>・<a class="el" href="stamanagement_8h-source.html#l00115">wlan_interface</a>.
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00685">recv_from_udp()</a>.
+<p>
+関数の呼び出しグラフ:<p><center><img src="stamanagement_8h_00b89cb54db657bc21c6afe770b65c66_cgraph.png" border="0" usemap="#stamanagement_8h_00b89cb54db657bc21c6afe770b65c66_cgraph_map" alt=""></center>
+<map name="stamanagement_8h_00b89cb54db657bc21c6afe770b65c66_cgraph_map">
+<area href="stamanagement_8c.html#882776ace026a93631fc479af2baba3f" shape="rect" coords="206,8,353,32" alt="">
+</map>
+
+</div>
+</div><p>
+<a class="anchor" name="2a20974208b6a1ef316e2b916f18e93f"></a><!-- doxytag: member="stamanagement.h::sigaction_handler" ref="2a20974208b6a1ef316e2b916f18e93f" args="(int sig, siginfo_t *si, void *context)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void sigaction_handler           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>sig</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">siginfo_t *&nbsp;</td>
+          <td class="paramname"> <em>si</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>context</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="d96d407a911fbb914fa8e4cfbf2faf0f"></a><!-- doxytag: member="stamanagement.h::usage" ref="d96d407a911fbb914fa8e4cfbf2faf0f" args="(void)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usage           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<hr><h2>変数</h2>
+<a class="anchor" name="a2339b21f98abccd12533a54d5f9d712"></a><!-- doxytag: member="stamanagement.h::daemonize" ref="a2339b21f98abccd12533a54d5f9d712" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="stamanagement_8h.html#a2339b21f98abccd12533a54d5f9d712">daemonize</a> = 1          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00113">113</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+</div>
+</div><p>
+<a class="anchor" name="64d743b19034f4f56fe32383fd890b00"></a><!-- doxytag: member="stamanagement.h::fifo_path" ref="64d743b19034f4f56fe32383fd890b00" args="[256]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char <a class="el" href="stamanagement_8h.html#64d743b19034f4f56fe32383fd890b00">fifo_path</a>[256]          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00114">114</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00908">init_parameters()</a>・<a class="el" href="stamanagement_8c-source.html#l00944">main()</a>・<a class="el" href="stamanagement_8c-source.html#l00094">recv_from_fifo()</a>.
+</div>
+</div><p>
+<a class="anchor" name="91bb6dfcba13de586d77afd7ae5631e3"></a><!-- doxytag: member="stamanagement.h::in6addr_linklocalmulticast" ref="91bb6dfcba13de586d77afd7ae5631e3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct in6_addr <a class="el" href="stamanagement_8h.html#91bb6dfcba13de586d77afd7ae5631e3">in6addr_linklocalmulticast</a> = IN6ADDR_MC_LINKLOCAL_INIT<code> [static]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00120">120</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00440">allocation_request_start()</a>.
+</div>
+</div><p>
+<a class="anchor" name="d2c8fb3df3a737e0685e902870a611d2"></a><!-- doxytag: member="stamanagement.h::sockfd" ref="d2c8fb3df3a737e0685e902870a611d2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="stamanagement_8h.html#d2c8fb3df3a737e0685e902870a611d2">sockfd</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+UDP受信ソケットのディスクリプタ 
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00118">118</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00440">allocation_request_start()</a>・<a class="el" href="stamanagement_8c-source.html#l00631">init_udp_socket()</a>・<a class="el" href="stamanagement_8c-source.html#l00685">recv_from_udp()</a>.
+</div>
+</div><p>
+<a class="anchor" name="3a342de928b87eb91a4dc575124c38ad"></a><!-- doxytag: member="stamanagement.h::srv_shutdown" ref="3a342de928b87eb91a4dc575124c38ad" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile sig_atomic_t <a class="el" href="stamanagement_8h.html#3a342de928b87eb91a4dc575124c38ad">srv_shutdown</a> = 0<code> [static]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00122">122</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00094">recv_from_fifo()</a>・<a class="el" href="stamanagement_8c-source.html#l00685">recv_from_udp()</a>・<a class="el" href="stamanagement_8c-source.html#l00889">sigaction_handler()</a>.
+</div>
+</div><p>
+<a class="anchor" name="37ce4b0b1ed4cf613fd5da9a23aad729"></a><!-- doxytag: member="stamanagement.h::temp_address" ref="37ce4b0b1ed4cf613fd5da9a23aad729" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__temporary__address__status.html">temporary_address_status</a> <a class="el" href="stamanagement_8h.html#37ce4b0b1ed4cf613fd5da9a23aad729">temp_address</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+割り当て未完了状態の仮アドレス 
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00119">119</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00485">allocation_request_timeout()</a>・<a class="el" href="stamanagement_8c-source.html#l00671">init_temporary_address_status()</a>.
+</div>
+</div><p>
+<a class="anchor" name="8080d4d36d5d3d072be611a95f864ac1"></a><!-- doxytag: member="stamanagement.h::udp_port" ref="8080d4d36d5d3d072be611a95f864ac1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="stamanagement_8h.html#8080d4d36d5d3d072be611a95f864ac1">udp_port</a> = 0          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00116">116</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00440">allocation_request_start()</a>・<a class="el" href="stamanagement_8c-source.html#l00908">init_parameters()</a>・<a class="el" href="stamanagement_8c-source.html#l00631">init_udp_socket()</a>・<a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+</div>
+</div><p>
+<a class="anchor" name="852214fee107d32377ac550a65b57637"></a><!-- doxytag: member="stamanagement.h::waiting_time" ref="852214fee107d32377ac550a65b57637" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="stamanagement_8h.html#852214fee107d32377ac550a65b57637">waiting_time</a> = 0          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00117">117</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00440">allocation_request_start()</a>・<a class="el" href="stamanagement_8c-source.html#l00908">init_parameters()</a>・<a class="el" href="stamanagement_8c-source.html#l00944">main()</a>.
+</div>
+</div><p>
+<a class="anchor" name="5eb693f34f101730533b75627415bcf6"></a><!-- doxytag: member="stamanagement.h::wlan_interface" ref="5eb693f34f101730533b75627415bcf6" args="[5]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char <a class="el" href="stamanagement_8h.html#5eb693f34f101730533b75627415bcf6">wlan_interface</a>[5]          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>
+ <a class="el" href="stamanagement_8h-source.html">stamanagement.h</a> の <a class="el" href="stamanagement_8h-source.html#l00115">115</a> 行で定義されています。
+<p>
+参照元 <a class="el" href="stamanagement_8c-source.html#l00355">add_sta()</a>・<a class="el" href="stamanagement_8c-source.html#l00485">allocation_request_timeout()</a>・<a class="el" href="stamanagement_8c-source.html#l00401">delete_sta()</a>・<a class="el" href="stamanagement_8c-source.html#l00908">init_parameters()</a>・<a class="el" href="stamanagement_8c-source.html#l00944">main()</a>・<a class="el" href="stamanagement_8c-source.html#l00094">recv_from_fifo()</a>・<a class="el" href="stamanagement_8c-source.html#l00742">recv_from_udp_child()</a>.
+</div>
+</div><p>
+<hr size="1"><address style="align: right;"><small>STA Management Daemonに対してSat Jan 27 18:50:23 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
+</body>
+</html>
